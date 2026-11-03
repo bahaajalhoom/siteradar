@@ -11,6 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import type { Audit, AuditConfig } from "@/lib/types";
+import {apiFetch} from "@/lib/api";
 export function NewAudit({
   open,
   onOpenChange,
@@ -32,7 +33,7 @@ export function NewAudit({
     try {
       const raw = String(fd.get("url")).trim();
       const url = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
-      const response = await fetch("/api/audits", {
+      const response = await apiFetch("/api/audits", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Eye, EyeSlash, SpinnerGap } from "@phosphor-icons/react";
 import {safeReturnPath} from '@/lib/workspace-routes';
+import {apiFetch} from '@/lib/api';
 export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?:string }) {
   const router = useRouter();
   const [error, setError] = useState(""),
@@ -15,7 +16,7 @@ export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?
     setError("");
     const f = new FormData(e.currentTarget);
     try {
-      const r = await fetch(`/api/auth/${signup ? "sign-up" : "sign-in"}`, {
+      const r = await apiFetch(`/api/auth/${signup ? "sign-up" : "sign-in"}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

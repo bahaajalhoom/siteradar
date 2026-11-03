@@ -63,6 +63,7 @@ import { IntegrationsPanel } from "./integrations-panel";
 import { PerformancePanel } from "./performance-panel";
 import { LiveKeywords } from "./live-keywords";
 import { LiveCompetitors } from "./live-competitors";
+import {apiFetch} from "@/lib/api";
 
 type View=WorkspaceView;
 const EMPTY_AUDITS:Audit[]=[];
@@ -164,10 +165,11 @@ export function Workspace({
   const refreshHistory = useCallback(async () => {
     if (demo) return;
     try {
-      const r = await fetch("/api/audits");
+      const r = await apiFetch("/api/audits");
       if (!r.ok) throw new Error("Could not load saved scans.");
       const json = await r.json();
       setHistory(json.data);
+      if (json.data[0]) setAudit((current) => current.id === "empty" ? json.data[0] : current);
       setHistoryError("");
     } catch (e) {
       setHistoryError(e instanceof Error ? e.message : "Unable to load scans.");
@@ -194,7 +196,7 @@ export function Workspace({
     let disposed = false;
     const timer = setInterval(async () => {
       try {
-        const r = await fetch(`/api/audits/${audit.id}`);
+        const r = await apiFetch(`/api/audits/${audit.id}`);
         if (!r.ok) throw new Error();
         const json = await r.json();
         if (!disposed) {
@@ -310,7 +312,7 @@ export function Workspace({
   }
   async function cancel() {
     try {
-      const r = await fetch(`/api/audits/${audit.id}`, { method: "PATCH" });
+      const r = await apiFetch(`/api/audits/${audit.id}`, { method: "PATCH" });
       const json = await r.json();
       if (!r.ok) throw new Error();
       setAudit(json.data);
@@ -361,7 +363,7 @@ export function Workspace({
     }
     setRerunning(true);
     try {
-      const r = await fetch("/api/audits", {
+      const r = await apiFetch("/api/audits", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(audit.config),
@@ -378,7 +380,7 @@ export function Workspace({
   }
   async function signOut() {
     try {
-      const r = await fetch("/api/auth/sign-out", { method: "POST" });
+      const r = await apiFetch("/api/auth/sign-out", { method: "POST" });
       if (!r.ok) throw new Error();
       window.location.href = "/sign-in";
     } catch {

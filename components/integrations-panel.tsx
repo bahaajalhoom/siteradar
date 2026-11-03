@@ -10,6 +10,7 @@ import {
   ArrowRight,
   SpinnerGap,
 } from "@phosphor-icons/react";
+import {apiFetch} from "@/lib/api";
 export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
   const [connected, setConnected] = useState(false),
     [key, setKey] = useState(""),
@@ -18,7 +19,7 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
     [error, setError] = useState("");
   async function load() {
     try {
-      const r = await fetch("/api/integrations");
+      const r = await apiFetch("/api/integrations");
       if (!r.ok) throw new Error();
       setConnected((await r.json()).data.serpapi);
       setError("");
@@ -39,7 +40,7 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
     }
     setPending(true);
     try {
-      const r = await fetch("/api/integrations", {
+      const r = await apiFetch("/api/integrations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
