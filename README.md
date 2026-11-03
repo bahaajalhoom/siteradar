@@ -1,5 +1,15 @@
 # SiteRadar
 
+## Firebase Hosting deployment
+
+`firebase deploy --only hosting` builds a frontend-only static export with
+`npm run build:hosting` and publishes `.firebase/export`. Public pages are
+pre-rendered; account data and audits use the external SiteRadar API. Hosting
+rewrites `/app/**` to the workspace shell so saved report links work on reload.
+The build runs in an isolated temporary directory and does not publish local
+API routes, SQLite databases, or environment files. The usual Next.js build
+and local development setup remain available.
+
 **Continuing on a Mac or handing this project to another developer? Start with [HANDOFF.md](HANDOFF.md).** It contains setup, private data migration, the latest implementation state, known unfinished work, and launch requirements. Original requirements: [Arabic product specification](docs/original-product-spec-ar.md).
 
 For the detailed architecture, every library's role, web/worker separation, API, database model and audit lifecycle, read [PROJECT-GUIDE.md](PROJECT-GUIDE.md).

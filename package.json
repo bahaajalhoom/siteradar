@@ -8,6 +8,7 @@
     "check:product": "node scripts/check-product.mjs",
     "dev": "concurrently -k -n web,worker \"node scripts/next.mjs dev --hostname 127.0.0.1\" \"node --watch server/worker.ts\"",
     "build": "node scripts/next.mjs build",
+    "build:hosting": "node scripts/build-hosting.mjs",
     "start": "concurrently -k \"node scripts/next.mjs start --hostname 127.0.0.1\" \"node server/worker.ts\"",
     "worker": "node server/worker.ts",
     "typecheck": "tsc --noEmit",
