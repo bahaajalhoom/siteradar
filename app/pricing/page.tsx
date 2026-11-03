@@ -1,14 +1,32 @@
 import Link from "next/link";
 import { Check, ArrowRight, Info, ShieldCheck, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import { PublicHeader, PublicFooter } from "@/components/public-shell";
-import {publicMetadata} from '@/lib/seo';
+import {publicMetadata, siteEntities} from '@/lib/seo';
+import {absoluteUrl} from '@/lib/site';
+import {JsonLd} from '@/components/json-ld';
 import {currentUser} from '@/server/auth';
 export const metadata = publicMetadata('Pricing | SiteRadar','Free includes unlimited projects, audits and saved reports. Basic, Pro and Max are coming soon. No payment is collected.','/pricing');
 export default async function Pricing() {
   const user=await currentUser();
+  const entities=siteEntities();
   return (
     <div className="public-site">
       <PublicHeader active="pricing" />
+      <JsonLd data={{
+        ...entities,
+        '@graph': [
+          ...entities['@graph'],
+          {
+            '@type': 'WebPage',
+            '@id': absoluteUrl('/pricing/#webpage'),
+            name: 'Pricing | SiteRadar',
+            url: absoluteUrl('/pricing/'),
+            isPartOf: {'@id': absoluteUrl('/#website')},
+            about: {'@id': absoluteUrl('/#application')},
+            inLanguage: 'en',
+          },
+        ],
+      }} />
       <main className="public-container pricing-page">
         <div className="public-page-title">
           <span className="public-eyebrow">SIMPLE BY DESIGN</span>
