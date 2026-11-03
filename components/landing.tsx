@@ -10,22 +10,23 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { PublicHeader, PublicFooter } from "./public-shell";
 import {currentUser} from '@/server/auth';
+import styles from './landing.module.css';
 export async function Landing() {
   const user=await currentUser();
   return (
-    <div className="public-site">
+    <div className={`public-site ${styles.landing}`}>
       <PublicHeader />
       <main>
         <section className="landing-hero public-container">
           <div className="hero-copy">
+            <span className={styles.eyebrow}><span /> YOUR WEBSITE. IN FOCUS.</span>
             <h1>
-              Know what’s holding
-              <br />
-              your website back.
+              A clearer picture.<br />
+              <em>A better website.</em>
             </h1>
             <p>
-              SEO, page speed, accessibility, and content readiness. One audit
-              that shows you the evidence—and what to fix next.
+              Find what’s holding your website back. Bring SEO, performance,
+              and accessibility into one clear report—and know what to fix next.
             </p>
             <div className="hero-actions">
               <Link href={user?'/app':'/sign-up'} className="btn primary">
@@ -46,7 +47,7 @@ export async function Landing() {
             <div className="preview-top">
               <span>
                 <GlobeHemisphereWest size={18} />
-                your-website.com
+                Website overview
               </span>
               <span className="small-chip">ILLUSTRATIVE REPORT</span>
             </div>
@@ -93,14 +94,21 @@ export async function Landing() {
             </div>
           </div>
         </section>
+        <div className={styles.coverage} aria-label="Audit capabilities">
+          <span>ONE WORKSPACE. EVERY ANGLE.</span>
+          {['Technical SEO', 'Lighthouse performance', 'Accessibility', 'Content readiness'].map(label => <span key={label}><Check size={16} aria-hidden="true" />{label}</span>)}
+        </div>
         <section id="how-it-works" className="how-section">
           <div className="public-container">
             <div className="section-intro">
+              <div>
+              <span className={styles.eyebrow}>FROM INSIGHT TO ACTION</span>
               <h2>
                 Less interpreting reports.
                 <br />
                 More improving your site.
               </h2>
+              </div>
               <p>
                 From a URL to a practical repair plan, without losing the
                 details that matter.
@@ -134,11 +142,14 @@ export async function Landing() {
         </section>
         <section className="capability-section public-container">
           <div className="section-intro">
+            <div>
+            <span className={styles.eyebrow}>BUILT FOR THE BIGGER PICTURE</span>
             <h2>
               Search health,
               <br />
               from more than one angle.
             </h2>
+            </div>
             <Link className="text-link" href="/docs/measurements">
               Understand the measurements
               <ArrowRight size={17} />
@@ -191,6 +202,7 @@ export async function Landing() {
         </section>
         <section className="public-cta public-container">
           <div>
+            <span className={styles.eyebrow}>YOUR NEXT MOVE</span>
             <h2>
               Your next improvement
               <br />
