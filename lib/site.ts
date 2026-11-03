@@ -1,4 +1,4 @@
-export const founder={name:'AhmadJalhoom',role:'Software Engineer',path:'/about/ahmadjalhoom'} as const;
+export const founder={name:'AhmadJalhoom',role:'Software Engineer',path:'/about/ahmadjalhoom',profileUrl:'https://taqat.work/en/talents/2122'} as const;
 export const site={name:'SiteRadar',description:'Website audits for SEO, Lighthouse performance, accessibility, and content readiness. Created by software engineer AhmadJalhoom.',keywords:['SiteRadar','SEO audit','website audit','Lighthouse performance','GEO readiness','AhmadJalhoom','AhmadJalhoom SiteRadar founder','AhmadJalhoom software engineer']} as const;
 export function configuredSiteUrl(raw=process.env.APP_BASE_URL){
   const url=new URL(raw||(process.env.NODE_ENV==='production'?'https://siteradar.site':'http://127.0.0.1:3000'));
