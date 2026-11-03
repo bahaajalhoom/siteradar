@@ -592,6 +592,142 @@ form textarea {
   padding-left: 40px;
   padding-right: 40px;
 }
+.about-page,
+.founder-page {
+  padding-top: 96px;
+  padding-bottom: 110px;
+}
+.public-page-title {
+  max-width: 860px;
+  margin-bottom: 72px;
+}
+.public-page-title h1 {
+  max-width: 760px;
+  font-size: clamp(42px, 6vw, 78px);
+  line-height: 1.03;
+  letter-spacing: -3.8px;
+  font-weight: 550;
+}
+.public-page-title > p {
+  max-width: 650px;
+  margin-top: 28px;
+  color: #61715a;
+  font-size: 19px;
+  line-height: 1.7;
+}
+.public-page-title a,
+.about-page a,
+.founder-page a {
+  color: #315f3d;
+  text-decoration: underline;
+  text-decoration-color: #aec59a;
+  text-underline-offset: 4px;
+}
+.about-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+  gap: 28px;
+  align-items: stretch;
+}
+.about-columns > section,
+.founder-bio,
+.founder-project,
+.about-principles,
+.founder-card {
+  border: 1px solid #dce5d7;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(39, 69, 42, .05);
+}
+.about-columns > section {
+  padding: 44px;
+}
+.about-columns h2,
+.about-principles h2 {
+  margin: 0 0 17px;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+  font-weight: 550;
+}
+.about-columns section p,
+.about-principles p {
+  max-width: 680px;
+  color: #61715a;
+  line-height: 1.8;
+  font-size: 16px;
+}
+.about-columns section p + p { margin-top: 18px; }
+.about-columns section .btn { margin-top: 28px; }
+.founder-card {
+  padding: 38px;
+  background: #edf4e8;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.founder-card h2 { margin-top: 22px; }
+.founder-card p { color: #61715a; line-height: 1.7; }
+.founder-card .text-link { margin-top: 25px; }
+.about-principles {
+  margin-top: 28px;
+  padding: 38px 44px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+  background: #f4f8ee;
+}
+.about-principles h2 { margin-bottom: 10px; }
+.about-principles .text-link { display: inline-flex; margin-top: 20px; }
+.founder-identity {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 42px;
+}
+.founder-monogram {
+  width: 82px;
+  height: 82px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  background: #0d3d27;
+  color: #d4efae;
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -1px;
+}
+.founder-identity h1 {
+  font-size: clamp(38px, 5vw, 64px);
+  letter-spacing: -2.8px;
+  line-height: 1;
+  font-weight: 550;
+}
+.founder-identity p { margin-top: 12px; color: #61715a; font-size: 17px; }
+.founder-bio {
+  max-width: 900px;
+  padding: 50px;
+}
+.founder-bio > h2 { font-size: 34px; letter-spacing: -1.4px; font-weight: 550; }
+.founder-bio > p { color: #61715a; font-size: 17px; line-height: 1.8; margin-top: 18px; }
+.founder-bio > p a { display: inline-flex; align-items: center; gap: 4px; }
+.founder-project {
+  margin-top: 38px;
+  padding: 26px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+  background: #f4f8ee;
+  box-shadow: none;
+}
+.founder-project h3 { font-size: 20px; font-weight: 600; }
+.founder-project p { color: #61715a; margin-top: 5px; }
+.founder-project span { display: block; color: #6f8b55; font-size: 12px; margin-top: 10px; }
+.founder-project .btn { white-space: nowrap; }
+.founder-bio > .text-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 28px; }
 .public-header {
   height: 96px;
   max-width: 1440px;
@@ -2401,4 +2537,21 @@ form textarea {
 }
 .serp-result-list a:hover {
   text-decoration: underline;
+}
+@media (max-width: 700px) {
+  .public-container { padding-left: 22px; padding-right: 22px; }
+  .about-page, .founder-page { padding-top: 52px; padding-bottom: 70px; }
+  .public-page-title { margin-bottom: 42px; }
+  .public-page-title h1 { font-size: 46px; letter-spacing: -2.4px; }
+  .public-page-title > p { font-size: 16px; }
+  .about-columns { grid-template-columns: 1fr; }
+  .about-columns > section, .founder-bio { padding: 28px; }
+  .about-principles { padding: 28px; grid-template-columns: 1fr; }
+  .founder-identity { align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+  .founder-monogram { width: 62px; height: 62px; border-radius: 16px; }
+  .founder-identity h1 { font-size: 40px; letter-spacing: -2px; }
+  .founder-identity p { font-size: 14px; line-height: 1.5; }
+  .founder-bio > h2 { font-size: 28px; }
+  .founder-project { grid-template-columns: auto 1fr; padding: 20px; }
+  .founder-project .btn { grid-column: 1 / -1; width: 100%; justify-content: center; }
 }
