@@ -216,6 +216,39 @@ h1 {
   align-items: flex-start;
   line-height: 1.5;
 }
+
+.audit-evidence {
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid var(--line, #dbe4d8);
+  border-radius: 18px;
+  background: #fff;
+}
+.audit-evidence-heading { align-items: flex-start; margin-bottom: 22px; }
+.audit-evidence-heading h2 { margin: 4px 0 5px; }
+.audit-evidence-heading p { margin: 0; color: var(--muted, #6d786f); }
+.audit-evidence-heading > svg { color: #4b7c59; margin-top: 3px; }
+.audit-evidence-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.evidence-positive-list, .evidence-files { min-width: 0; }
+.evidence-positive { display: flex; gap: 12px; padding: 15px 0; border-top: 1px solid var(--line, #dbe4d8); }
+.evidence-positive:first-child { border-top: 0; padding-top: 0; }
+.evidence-positive > svg { flex: 0 0 auto; color: #3d8156; margin-top: 2px; }
+.evidence-positive strong, .evidence-positive span, .evidence-positive p { display: block; }
+.evidence-positive span, .evidence-subheading span { margin-top: 4px; color: var(--muted, #6d786f); font-size: 12px; }
+.evidence-positive p { margin: 7px 0 0; color: #526057; font-size: 13px; line-height: 1.55; white-space: pre-wrap; }
+.evidence-subheading { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+.evidence-subheading > svg { color: #607c62; margin-top: 1px; }
+.evidence-subheading strong, .evidence-subheading span { display: block; }
+.evidence-file { border-top: 1px solid var(--line, #dbe4d8); padding: 10px 0; }
+.evidence-file summary { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; font-size: 13px; }
+.evidence-file em { font-style: normal; font-size: 11px; color: #9a6c22; }
+.evidence-file em.available { color: #3d8156; }
+.evidence-file pre { max-height: 220px; overflow: auto; margin: 12px 0 2px; padding: 12px; border-radius: 10px; background: #f5f8f1; color: #536054; white-space: pre-wrap; font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.evidence-keywords { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line, #dbe4d8); }
+.keyword-evidence-list { display: flex; gap: 8px; flex-wrap: wrap; }
+.keyword-evidence-list span { padding: 7px 10px; border-radius: 999px; background: #eef4e8; color: #4e6c4d; font-size: 12px; }
+.keyword-evidence-list span.muted { background: transparent; padding-left: 0; }
+@media (max-width: 800px) { .audit-evidence { padding: 20px; } .audit-evidence-columns { grid-template-columns: 1fr; gap: 22px; } }
 .category-score > strong {
   font-size: 32px;
 }

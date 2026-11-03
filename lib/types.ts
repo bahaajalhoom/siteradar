@@ -1,6 +1,8 @@
 export type Category =
   "SEO" | "GEO readiness" | "Performance" | "Accessibility" | "Technical";
 export type Severity = "Critical" | "High" | "Medium" | "Low";
+export type PositiveSignal = { id: string; rule: string; title: string; category: Category; pages: string[]; evidence: string };
+export type AuditResource = { path: string; url: string; status: number; available: boolean; contentType: string; content: string };
 export type Finding = {
   id: string;
   rule: string;
@@ -34,6 +36,7 @@ export type AuditConfig = {
   device: string;
   maxPages: number;
   keywords: string[];
+  keywordSource?: "provided" | "extracted";
   authorized: boolean;
 };
 export type User = { id: string; name: string; email: string };
@@ -80,6 +83,8 @@ export type Audit = {
   config: AuditConfig;
   pages: AuditPage[];
   findings: Finding[];
+  positives?: PositiveSignal[];
+  resources?: AuditResource[];
   score: number | null;
   scores: { category: Category; value: number | null; note: string }[];
   events: { time: string; message: string }[];

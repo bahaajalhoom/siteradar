@@ -63,6 +63,7 @@ import { IntegrationsPanel } from "./integrations-panel";
 import { PerformancePanel } from "./performance-panel";
 import { LiveKeywords } from "./live-keywords";
 import { LiveCompetitors } from "./live-competitors";
+import { AuditEvidence } from "./audit-evidence";
 import {apiFetch} from "@/lib/api";
 
 type View=WorkspaceView;
@@ -1162,6 +1163,7 @@ export function Workspace({
                   ))}
                 </div>
               </section>
+              {!audit.synthetic && <AuditEvidence audit={audit} />}
               <div className="bottom-grid">
                 <section className="priorities panel">
                   <div className="section-heading">
