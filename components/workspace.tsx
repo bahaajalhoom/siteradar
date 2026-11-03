@@ -64,7 +64,7 @@ import { IntegrationsPanel } from "./integrations-panel";
 import { PerformancePanel } from "./performance-panel";
 import { LiveKeywords } from "./live-keywords";
 import { LiveCompetitors } from "./live-competitors";
-import { AuditEvidence, PositiveSignals } from "./audit-evidence";
+import { DiscoveryFiles, PositiveSignals } from "./audit-evidence";
 import {apiFetch} from "@/lib/api";
 
 type View=WorkspaceView;
@@ -1164,7 +1164,6 @@ export function Workspace({
                   ))}
                 </div>
               </section>
-              {!audit.synthetic && <AuditEvidence audit={audit} />}
               <div className="bottom-grid">
                 <section className="priorities panel">
                   <div className="section-heading">
@@ -1321,6 +1320,12 @@ export function Workspace({
                     <CheckCircle size={25} />
                   </div>
                   <PositiveSignals audit={audit} category={category as Category} />
+                  {(category === "GEO readiness" || category === "Technical") && (
+                    <DiscoveryFiles
+                      audit={audit}
+                      paths={category === "GEO readiness" ? ["/llms.txt", "/llms-full.txt"] : ["/robots.txt"]}
+                    />
+                  )}
                 </section>
               )}
               <div className="findings-table">
