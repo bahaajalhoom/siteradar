@@ -249,6 +249,13 @@ h1 {
 .keyword-evidence-list span { padding: 7px 10px; border-radius: 999px; background: #eef4e8; color: #4e6c4d; font-size: 12px; }
 .keyword-evidence-list span.muted { background: transparent; padding-left: 0; }
 @media (max-width: 800px) { .audit-evidence { padding: 20px; } .audit-evidence-columns { grid-template-columns: 1fr; gap: 22px; } }
+.category-positive-panel { margin: 22px 0; padding: 22px; border: 1px solid #dbe8d7; border-radius: 14px; background: #f8fbf5; }
+.category-positive-panel .section-heading { align-items: flex-start; margin-bottom: 12px; }
+.category-positive-panel .section-heading h3 { margin: 4px 0 4px; font-size: 22px; }
+.category-positive-panel .section-heading p { margin: 0; color: var(--muted, #6d786f); }
+.category-positive-panel .section-heading > svg { color: #3d8156; }
+.category-positive-panel .evidence-positive-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+@media (max-width: 800px) { .category-positive-panel .evidence-positive-list { grid-template-columns: 1fr; } }
 .category-score > strong {
   font-size: 32px;
 }

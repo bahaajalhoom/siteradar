@@ -1,7 +1,29 @@
-import type { Audit } from "@/lib/types";
+import type { Audit, Category } from "@/lib/types";
 import { CheckCircle, FileText, MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react";
 
 const positiveCategories = new Set(["SEO", "GEO readiness"]);
+
+export function PositiveSignals({ audit, category }: { audit: Audit; category?: Category }) {
+  const positives = (audit.positives ?? []).filter((signal) =>
+    category ? signal.category === category : positiveCategories.has(signal.category),
+  );
+  return positives.length ? (
+    <div className="evidence-positive-list">
+      {positives.map((signal) => (
+        <article className="evidence-positive" key={signal.rule}>
+          <CheckCircle size={20} weight="fill" />
+          <div>
+            <strong>{signal.title}</strong>
+            <span>{signal.category}</span>
+            <p>{signal.evidence}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <p className="muted">No positive signals were recorded for this category.</p>
+  );
+}
 
 export function AuditEvidence({ audit }: { audit: Audit }) {
   const positives = (audit.positives ?? []).filter((signal) =>
@@ -24,20 +46,7 @@ export function AuditEvidence({ audit }: { audit: Audit }) {
         <ShieldCheck size={28} />
       </div>
       <div className="audit-evidence-columns">
-        <div className="evidence-positive-list">
-          {positives.length ? positives.map((signal) => (
-            <article className="evidence-positive" key={signal.rule}>
-              <CheckCircle size={20} weight="fill" />
-              <div>
-                <strong>{signal.title}</strong>
-                <span>{signal.category}</span>
-                <p>{signal.evidence}</p>
-              </div>
-            </article>
-          )) : (
-            <p className="muted">Positive evidence will appear after the worker completes this audit.</p>
-          )}
-        </div>
+        <PositiveSignals audit={{ ...audit, positives }} />
         <div className="evidence-files">
           <div className="evidence-subheading">
             <FileText size={19} />

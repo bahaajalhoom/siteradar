@@ -55,6 +55,7 @@ import {
   type User,
   type AuditConfig,
   type Project,
+  type Category,
 } from "@/lib/types";
 import { ScoreRing } from "./score-ring";
 import { HealthChart } from "./project-chart";
@@ -63,7 +64,7 @@ import { IntegrationsPanel } from "./integrations-panel";
 import { PerformancePanel } from "./performance-panel";
 import { LiveKeywords } from "./live-keywords";
 import { LiveCompetitors } from "./live-competitors";
-import { AuditEvidence } from "./audit-evidence";
+import { AuditEvidence, PositiveSignals } from "./audit-evidence";
 import {apiFetch} from "@/lib/api";
 
 type View=WorkspaceView;
@@ -1309,6 +1310,19 @@ export function Workspace({
                   ))}
                 </select>
               </div>
+              {category !== "All categories" && (
+                <section className="category-positive-panel" aria-label={`${category} positive signals`}>
+                  <div className="section-heading">
+                    <div>
+                      <span className="public-eyebrow">VERIFIED POSITIVES</span>
+                      <h3>{category === "GEO readiness" ? "GEO" : category} positive signals</h3>
+                      <p>Evidence that this category is working on the pages we checked.</p>
+                    </div>
+                    <CheckCircle size={25} />
+                  </div>
+                  <PositiveSignals audit={audit} category={category as Category} />
+                </section>
+              )}
               <div className="findings-table">
                 {filtered.map((f) => (
                   <div className="finding-row" key={f.id}>
