@@ -7,6 +7,9 @@ import {
   Code,
   FileText,
   CaretDown,
+  Scan,
+  Flag,
+  Files,
   GlobeHemisphereWest,
   ShieldCheck,
 } from "@phosphor-icons/react/dist/ssr";
@@ -19,18 +22,18 @@ export async function Landing() {
     <div className={`public-site ${styles.landing}`}>
       <PublicHeader />
       <main>
-        <section className="landing-hero public-container">
-          <div className="hero-copy">
+        <section className={styles.homeHero}>
+          <div className={styles.homeIntro}>
             <span className={styles.eyebrow}><span /> YOUR WEBSITE. IN FOCUS.</span>
             <h1>
-              A clearer picture.<br />
-              <em>A better website.</em>
+              Your website,<br />
+              <em>seen clearly.</em>
             </h1>
             <p>
               Find what’s holding your website back. Bring SEO, performance,
               and accessibility into one clear report—and know what to fix next.
             </p>
-            <div className="hero-actions">
+            <div className={`hero-actions ${styles.homeActions}`}>
               <Link href={user?'/app':'/sign-up'} className="btn primary">
                 {user?'Open your workspace':'Audit your website'}
                 <ArrowRight size={19} />
@@ -45,54 +48,32 @@ export async function Landing() {
               Free. Unlimited projects and audits. No credit card.
             </span>
           </div>
-          <div className="hero-report">
-            <div className="preview-top">
-              <span>
-                <GlobeHemisphereWest size={18} />
-                Website overview
-              </span>
-              <span className="small-chip">ILLUSTRATIVE REPORT</span>
-            </div>
-            <div className="preview-score">
-              <div className="preview-dial">
-                <strong>74</strong>
-                <span>audit score / 100</span>
+          <div className={styles.productFrame}>
+            <div className={styles.windowBar}><span aria-hidden="true"><i /><i /><i /></span><span><ShieldCheck size={13} /> SiteRadar / Your workspace</span><span>PRODUCT PREVIEW</span></div>
+            <div className={styles.productLayout}>
+              <div className={styles.productNav} aria-hidden="true">
+                <strong><Scan size={22} />SiteRadar.</strong>
+                <small>YOUR WORKSPACE</small>
+                <span className={styles.activeNav}><Scan size={16} />Overview</span>
+                <span><Flag size={16} />Issues</span>
+                <span><Files size={16} />Pages</span>
+                <span><ChartLineUp size={16} />Performance</span>
+                <span><Code size={16} />Fix prompt</span>
+                <p>See clearly.<br />Improve deliberately.</p>
               </div>
-              <div>
-                <span className="badge medium">Room to improve</span>
-                <h2>
-                  A clearer picture.
-                  <br />A focused next step.
-                </h2>
-                <p>Every finding connects back to a page.</p>
-              </div>
-            </div>
-            <div className="preview-bars">
-              {[
-                ["SEO", 78],
-                ["Performance", 68],
-                ["Accessibility", 92],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <span>{label}</span>
-                  <i>
-                    <b style={{ width: `${value}%` }} />
-                  </i>
-                  <strong>{value}</strong>
+              <div className={styles.productContent}>
+                <div className={styles.productTitle}><div><span>WEBSITE INTELLIGENCE</span><h2>Your next move, in focus.</h2></div><Link href="/demo">Explore report <ArrowUpRight size={15} /></Link></div>
+                <div className={styles.productOverview}>
+                  <div className={styles.radarVisual} aria-hidden="true"><span /><span /><span /><Scan size={30} /></div>
+                  <div><span className={styles.reportTag}>FROM AUDIT TO ACTION</span><h3>Everything connects.<br />Nothing gets lost.</h3><p>Understand the issue. See the evidence.<br />Know where to start.</p></div>
+                  <div className={styles.checkList}>{['Technical SEO', 'Performance', 'Accessibility', 'Content readiness'].map(label => <span key={label}><Check size={15} />{label}</span>)}</div>
                 </div>
-              ))}
-            </div>
-            <div className="preview-finding">
-              <span className="finding-number">01</span>
-              <div>
-                <strong>Make your main content easier to find</strong>
-                <span>SEO · Page-level evidence · Clear repair steps</span>
+                <div className={styles.reportColumns}>
+                  <div><Flag size={20} /><h3>Find what matters</h3><p>Prioritized findings, with every affected page in view.</p><span>ISSUES & EVIDENCE <ArrowRight size={14} /></span></div>
+                  <div><Code size={20} /><h3>Make a clear plan</h3><p>Turn selected findings into a focused repair brief.</p><span>YOUR NEXT STEPS <ArrowRight size={14} /></span></div>
+                </div>
+                <div className={styles.productNote}><ShieldCheck size={14} /> Interface preview. Your audit will show your own measurements.</div>
               </div>
-              <ArrowUpRight size={18} />
-            </div>
-            <div className="preview-foot">
-              <ShieldCheck size={15} />
-              Example data. Your report uses actual measurements.
             </div>
           </div>
         </section>
