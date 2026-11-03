@@ -30,7 +30,7 @@ export function DiscoveryFiles({ audit, paths }: { audit: Audit; paths: string[]
     <div className="category-discovery-files">
       <div className="evidence-subheading">
         <FileText size={19} />
-        <div><strong>Discovery files</strong><span>Fetched from the site root</span></div>
+        <div><strong>Discovery files</strong><span>Fetched content and detected issues are included in this report. Content previews show up to 20,000 characters.</span></div>
       </div>
       {resources.length ? resources.map((resource) => (
         <details className="evidence-file" key={resource.path}>

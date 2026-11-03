@@ -1320,13 +1320,10 @@ export function Workspace({
                     <CheckCircle size={25} />
                   </div>
                   <PositiveSignals audit={audit} category={category as Category} />
-                  {(category === "GEO readiness" || category === "Technical") && (
-                    <DiscoveryFiles
-                      audit={audit}
-                      paths={category === "GEO readiness" ? ["/llms.txt", "/llms-full.txt"] : ["/robots.txt"]}
-                    />
-                  )}
                 </section>
+              )}
+              {['SEO', 'GEO readiness', 'Technical'].includes(category) && (
+                <DiscoveryFiles audit={audit} paths={category === 'GEO readiness' ? ['/llms.txt', '/llms-full.txt', '/robots.txt'] : ['/robots.txt', '/sitemap.xml']} />
               )}
               <div className="findings-table">
                 {filtered.map((f) => (
