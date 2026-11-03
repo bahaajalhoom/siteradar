@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import "./globals.css";
 import "./product.css";
+import "./public-refresh.css";
 import {publicMetadata} from '@/lib/seo';
 import {configuredSiteUrl,site} from '@/lib/site';
 export const metadata: Metadata = {

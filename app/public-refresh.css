@@ -1,0 +1,124 @@
+/* Shared public-page typography, surfaces and spacing. */
+.public-eyebrow { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: #637d50; margin-bottom: 22px; }
+.public-site { background: #f8faf5; }
+.public-site .public-header { max-width: 1280px; padding-inline: 40px; }
+.public-site .public-footer { max-width: 1280px; padding-block: 40px; }
+.public-site .public-footer > nav { flex-wrap: wrap; gap: 14px 24px; }
+.public-site .public-page-title { padding: 76px 0 48px; margin: 0; max-width: 920px; }
+.public-site .public-page-title h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.12; letter-spacing: -2.8px; font-weight: 550; }
+.public-site .public-page-title p { max-width: 600px; font-size: 17px; line-height: 1.85; margin-top: 24px; color: #65765c; }
+.public-site .btn { border-radius: 7px; }
+.public-site .pricing-grid { max-width: 1040px; margin-inline: auto; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid #cbd9bf; border-radius: 14px; overflow: hidden; background: white; }
+.public-site .price-plan { padding: 38px; border: 0; border-radius: 0; background: #f0f5e8; }
+.public-site .plan-heading { flex-direction: row; justify-content: space-between; align-items: center; gap: 16px; }
+.public-site .plan-heading h2 { font-size: 28px; }
+.public-site .plan-heading .small-chip { background: #daeac5; border-color: #c4d8ad; font-size: 8px; }
+.public-site .plan-price { margin: 28px 0 12px; gap: 4px; }
+.public-site .available-plan .plan-price strong { font-size: 72px; font-weight: 500; letter-spacing: -4px; }
+.public-site .price-plan > p { min-height: 0; color: #607551; font-size: 14px; }
+.public-site .price-plan > .btn { margin-top: 26px; min-height: 48px; }
+.public-site .price-plan ul { margin-top: 28px; gap: 16px; }
+.public-site .price-plan li { font-size: 13px; }
+.pricing-included { padding: 40px; background: #123d2b; color: #edf4e4; }
+.pricing-included > svg { color: #cde7a6; display: block; margin-bottom: 28px; }
+.pricing-included .public-eyebrow { color: #bad1a7; font-size: 8px; margin-bottom: 16px; }
+.pricing-included h2 { font-size: 32px; font-weight: 500; line-height: 1.2; letter-spacing: -1.2px; }
+.pricing-included p { font-size: 13px; line-height: 1.85; color: #c2d3b6; margin-top: 16px; }
+.pricing-included > div { border-top: 1px solid #3b5c42; padding-top: 22px; margin-top: 24px; }
+.pricing-included strong { font-weight: 550; font-size: 14px; }
+.pricing-included > div p { margin-top: 8px; }
+.pricing-included > a { display: inline-flex; align-items: center; gap: 12px; color: #d6ecb6; border-bottom: 1px solid #77946b; margin-top: 28px; padding-bottom: 7px; font-size: 13px; }
+.public-site .pricing-note { max-width: 1040px; margin: auto; font-size: 12px; padding-block: 22px; }
+.public-site .pricing-faq { margin-top: 56px; max-width: 840px; }
+.public-site .pricing-faq > h2 { font-size: 36px; letter-spacing: -1.3px; }
+.pricing-faq details { border-top: 1px solid #d6dfce; }
+.pricing-faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px 0; font-size: 16px; font-weight: 550; }
+.pricing-faq summary::-webkit-details-marker { display: none; }
+.pricing-faq summary:focus-visible { outline: 2px solid #357457; outline-offset: 4px; }
+.pricing-faq details[open] summary svg { transform: rotate(180deg); }
+.public-site .pricing-faq details p { padding-bottom: 24px; margin: 0; font-size: 14px; }
+.future-plans { max-width: 1040px; margin: 54px auto 0; padding: 28px 32px; border: 1px solid #d9e2d1; border-radius: 10px; }
+.future-plans .public-eyebrow { margin-bottom: 12px; }
+.future-plans h2 { font-size: 23px; letter-spacing: -.7px; font-weight: 550; }
+.future-plans p { font-size: 14px; color: #687c5b; line-height: 1.8; margin: 10px 0 18px; }
+.future-plans .small-chip { font-size: 8px; }
+.public-site .docs-search { max-width: 100%; margin-bottom: 26px; border-radius: 10px; padding: 20px 24px; }
+.public-site .docs-search:focus-within { border-color: #78995b; box-shadow: 0 0 0 3px #e6eedc; }
+.docs-results-meta { display: flex; justify-content: space-between; gap: 20px; font-size: 12px; font-weight: 600; margin-bottom: 18px; color: #4b643f; }
+.docs-results-meta > span { color: #748369; font-weight: 400; }
+.public-site .docs-index { gap: 18px; }
+.public-site .docs-index > a { padding: 26px; background: #fff; border: 1px solid #dce4d4; border-radius: 10px; gap: 18px; transition: border-color 160ms, background 160ms; }
+.public-site .docs-index > a:hover { border-color: #9ab581; background: #f1f6e9; }
+.public-site .docs-index > a > svg:first-child { background: #edf3e5; padding: 10px; width: 42px; height: 42px; border-radius: 8px; }
+.public-site .docs-index > a > svg:last-child { margin-top: 11px; width: 17px; }
+.docs-card-label { display: block; font-family: var(--font-mono); font-size: 8px; letter-spacing: 1px; color: #7a8b6c; margin-bottom: 10px; }
+.public-site .docs-index h2 { font-size: 19px; letter-spacing: -.5px; }
+.public-site .docs-index p { font-size: 13px; line-height: 1.8; }
+.public-site .docs-layout { grid-template-columns: 230px minmax(0, 1fr); gap: 64px; padding-top: 58px; }
+.public-site .docs-sidebar { align-self: start; position: sticky; top: 28px; background: #eef3e7; border: 1px solid #dbe4d1; border-radius: 10px; padding: 22px; }
+.public-site .docs-sidebar > a:first-child { font-size: 11px; }
+.public-site .docs-sidebar nav { margin-block: 24px; }
+.public-site .docs-sidebar nav a { padding: 10px 12px; font-size: 12px; border-radius: 5px; }
+.public-site .docs-sidebar nav a[aria-current="page"] { background: #dce9cc; color: #294d2c; }
+.public-site .docs-sidebar > .btn { font-size: 11px; padding: 12px; justify-content: center; }
+.public-site .docs-article { padding-bottom: 16px; max-width: 760px; }
+.public-site .docs-article h1 { font-size: clamp(34px, 4vw, 50px); line-height: 1.15; letter-spacing: -2px; }
+.public-site .article-description { font-size: 17px; line-height: 1.8; color: #6c7e60; }
+.public-site .article-toc { display: grid; gap: 10px; border: 1px solid #dce4d4; border-left: 3px solid #8fae70; padding: 24px; border-radius: 0 8px 8px 0; background: #f0f5e9; margin-block: 32px 40px; }
+.article-toc > strong { font-size: 12px; margin-bottom: 4px; color: #294c2e; }
+.public-site .article-toc a { font-size: 13px; }
+.public-site .docs-article section { scroll-margin-top: 30px; padding-top: 8px; margin-bottom: 32px; }
+.public-site .docs-article section h2 { font-size: 25px; font-weight: 550; letter-spacing: -.8px; }
+.public-site .docs-article section p { font-size: 15px; line-height: 1.95; margin-top: 14px; }
+.public-site .docs-next { border: 1px solid #d8e3cb; background: #edf4e5; border-radius: 10px; padding: 24px; }
+.public-site .about-page { padding-top: 0; }
+.public-site .about-page .public-page-title { padding-bottom: 56px; }
+.public-site .about-columns > section, .public-site .founder-bio, .public-site .founder-card, .public-site .about-principles { box-shadow: none; border-radius: 12px; }
+.public-site .founder-bio { max-width: 100%; }
+.public-site .founder-page { max-width: 1080px; padding-top: 72px; }
+.auth-page .auth-story { background: #123d2b; padding: 44px 60px; }
+.auth-page .auth-story .public-eyebrow { color: #bcd4a7; }
+.auth-page .auth-story h1 { font-size: clamp(38px, 4.4vw, 64px); letter-spacing: -2.8px; }
+.auth-page .auth-panel { background: #f8faf5; }
+.auth-page .auth-panel > div { max-width: 400px; }
+.auth-page .auth-panel h2 { font-size: 34px; letter-spacing: -1.4px; }
+.auth-page .auth-form input { border-radius: 7px; background: #fff; }
+.auth-page .auth-form > .btn { border-radius: 7px; }
+@media (max-width: 1000px) {
+  .public-site .docs-layout { gap: 30px; grid-template-columns: 200px minmax(0, 1fr); }
+  .public-site .pricing-grid { grid-template-columns: 1fr 1fr; }
+  .auth-page .auth-story, .auth-page .auth-panel { padding-inline: 32px; }
+}
+@media (max-width: 700px) {
+  .public-site .public-header { padding-inline: 22px; }
+  .public-site .public-container { padding-inline: 22px; }
+  .public-site .public-page-title { padding-block: 44px 32px; }
+  .public-site .public-page-title h1 { font-size: 39px; letter-spacing: -1.8px; }
+  .public-site .public-page-title p { font-size: 15px; margin-top: 20px; }
+  .public-eyebrow { font-size: 9px; margin-bottom: 18px; }
+  .public-site .pricing-grid { grid-template-columns: 1fr; }
+  .public-site .price-plan, .pricing-included { padding: 28px; }
+  .public-site .pricing-faq > h2 { font-size: 30px; }
+  .pricing-faq summary { font-size: 14px; }
+  .future-plans { padding: 24px; }
+  .public-site .docs-index { grid-template-columns: 1fr; gap: 14px; }
+  .public-site .docs-index > a { padding: 22px; gap: 14px; }
+  .docs-results-meta > span { display: none; }
+  .public-site .docs-layout { grid-template-columns: 1fr; padding-top: 28px; gap: 34px; }
+  .public-site .docs-sidebar { position: static; padding: 18px; }
+  .public-site .docs-sidebar nav { display: flex; flex-wrap: wrap; gap: 6px; margin-block: 16px; }
+  .public-site .docs-sidebar nav a { padding: 7px 10px; border: 1px solid #dbe4d1; font-size: 10px; }
+  .public-site .docs-article h1 { font-size: 34px; }
+  .public-site .docs-article section h2 { font-size: 23px; }
+  .public-site .founder-page { padding-top: 44px; }
+  .public-site .public-footer { padding: 30px 22px; align-items: flex-start; flex-direction: column; gap: 24px; }
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-page .auth-story { padding: 28px 24px; }
+  .auth-page .auth-story > div { padding: 34px 0; }
+  .auth-page .auth-story h1 { font-size: 40px; letter-spacing: -1.8px; }
+  .auth-page .auth-story p { font-size: 15px; margin-top: 16px; }
+  .auth-page .auth-story ul { display: none; }
+  .auth-page .auth-panel { padding: 28px 24px; }
+  .auth-page .auth-panel > div { padding-block: 34px; }
+  .auth-page .auth-panel h2 { font-size: 29px; }
+}

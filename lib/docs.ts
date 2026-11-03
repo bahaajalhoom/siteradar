@@ -9,8 +9,8 @@ export const docs = [
         body: "Create a free account with your name, email, and a password of at least 10 characters. Sign in at /sign-in. Your session persists so you do not need to sign in for every visit.",
       },
       {
-        title: "Bring your existing reports",
-        body: "When creating an account, keep “Import existing reports from this computer” selected to bring reports from the earlier local workspace into your account. Import only reports you are authorized to manage.",
+        title: "Your own workspace",
+        body: "Your account keeps your projects and audit reports together. Sign in with the same account to return to your saved work.",
       },
       {
         title: "Run your first audit",

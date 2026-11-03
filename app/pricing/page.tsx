@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, ArrowRight, Info } from "@phosphor-icons/react/dist/ssr";
+import { Check, ArrowRight, Info, ShieldCheck, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import { PublicHeader, PublicFooter } from "@/components/public-shell";
 import {publicMetadata} from '@/lib/seo';
 import {currentUser} from '@/server/auth';
@@ -11,53 +11,35 @@ export default async function Pricing() {
       <PublicHeader active="pricing" />
       <main className="public-container pricing-page">
         <div className="public-page-title">
+          <span className="public-eyebrow">SIMPLE BY DESIGN</span>
           <h1>
-            A clearer view.
+            Your next improvement.
             <br />
-            No limits on getting started.
+            Starts for free.
           </h1>
-          <p>Free is unlimited. Basic, Pro, and Max are still being built.</p>
+          <p>One workspace for your websites, findings, and next steps. No subscription. No credit card.</p>
         </div>
         <div className="pricing-grid">
-          {["Free", "Basic", "Pro", "Max"].map((name, i) => (
-            <article
-              className={`price-plan ${i === 0 ? "available-plan" : ""}`}
-              key={name}
-            >
+            <article className="price-plan available-plan">
               <div className="plan-heading">
-                <h2>{name}</h2>
+                <h2>Free</h2>
                 <span className="small-chip">
-                  {i === 0 ? "AVAILABLE NOW" : "COMING SOON"}
+                  AVAILABLE NOW
                 </span>
               </div>
               <div className="plan-price">
-                {i === 0 ? (
-                  <>
                     <strong>$0</strong>
                     <span>/ no subscription</span>
-                  </>
-                ) : (
-                  <strong>Coming soon</strong>
-                )}
               </div>
               <p>
-                {i === 0
-                  ? "Everything available today, with unlimited usage."
-                  : "Details and pricing will be announced when this plan launches."}
+                The tools to understand your website and make a clear plan.
               </p>
-              {i === 0 ? (
                 <Link className="btn primary full" href={user?'/app':'/sign-up'}>
                   {user?'Open your Free workspace':'Start with Free'}
                   <ArrowRight size={17} />
                 </Link>
-              ) : (
-                <button disabled className="btn full">
-                  Coming soon
-                </button>
-              )}
               <ul>
-                {(i === 0
-                  ? [
+                {[
                       "Unlimited projects",
                       "Unlimited audits and history",
                       "Unlimited saved keywords",
@@ -65,13 +47,7 @@ export default async function Pricing() {
                       "SEO & accessibility findings",
                       "CSV, JSON, and repair prompts",
                       "No credit card required",
-                    ]
-                  : [
-                      "Not available for purchase",
-                      "No payment collected",
-                      "Free remains available",
-                    ]
-                ).map((f) => (
+                    ].map((f) => (
                   <li key={f}>
                     <Check size={16} />
                     {f}
@@ -79,7 +55,15 @@ export default async function Pricing() {
                 ))}
               </ul>
             </article>
-          ))}
+          <aside className="pricing-included">
+            <ShieldCheck size={32} />
+            <span className="public-eyebrow">MORE CLARITY. LESS FRICTION.</span>
+            <h2>Everything you need<br />to get moving.</h2>
+            <p>Save a project, run an audit, and return to the evidence whenever you need it.</p>
+            <div><strong>Keep your progress in view</strong><p>Saved reports and repeat audits help you compare changes over time.</p></div>
+            <div><strong>Bring the findings to your team</strong><p>Export your report or create a repair prompt with affected pages and practical recommendations.</p></div>
+            <Link href="/docs/getting-started">See how to get started <ArrowRight size={17} /></Link>
+          </aside>
         </div>
         <div className="pricing-note">
           <Info size={21} />
@@ -91,30 +75,31 @@ export default async function Pricing() {
           </p>
         </div>
         <div className="pricing-faq">
-          <h2>A few things to know.</h2>
-          <article>
-            <h3>How long will Free stay unlimited?</h3>
+          <span className="public-eyebrow">THE DETAILS, MADE SIMPLE</span>
+          <h2>Good to know.</h2>
+          <details>
+            <summary>How does the Free plan work?<CaretDown size={18} /></summary>
             <p>
-              Free is unlimited until the product owner explicitly changes the
-              policy. There are no paid upgrades to buy today.
+              Free currently includes unlimited projects and audits, subject to crawl time and resource safeguards. There are no paid upgrades to buy today.
             </p>
-          </article>
-          <article>
-            <h3>Do I need a search-provider account?</h3>
+          </details>
+          <details>
+            <summary>Do I need a search-provider account?<CaretDown size={18} /></summary>
             <p>
               Only for live keyword positions and search competitors. Website
               audits, performance, accessibility, exports, and repair prompts
               work without it.
             </p>
-          </article>
-          <article>
-            <h3>Can I audit my site again?</h3>
+          </details>
+          <details>
+            <summary>Can I audit my site again?<CaretDown size={18} /></summary>
             <p>
               Yes. Open the saved project and choose Run again. Your URL,
               market, device, and keywords are remembered.
             </p>
-          </article>
+          </details>
         </div>
+        <div className="future-plans"><span className="public-eyebrow">LOOKING AHEAD</span><h2>Basic, Pro & Max</h2><p>More plans are in development. Features and pricing will be announced when they’re ready.</p><span className="small-chip">COMING SOON · NO PAYMENT COLLECTED</span></div>
       </main>
       <PublicFooter />
     </div>

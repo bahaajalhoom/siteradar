@@ -8,7 +8,7 @@ export function DocsBrowser() {
   const filtered = docs.filter((d) =>
     `${d.title} ${d.description} ${d.sections.map((s) => s.body).join(" ")}`
       .toLowerCase()
-      .includes(q.toLowerCase()),
+      .includes(q.trim().toLowerCase()),
   );
   return (
     <>
@@ -21,11 +21,13 @@ export function DocsBrowser() {
           aria-label="Search documentation"
         />
       </label>
+      <div className="docs-results-meta" role="status">{q.trim() ? `${filtered.length} matching guides` : 'Explore the guides'}<span>From your first audit to your next fix.</span></div>
       <div className="docs-index">
         {filtered.map((d) => (
           <Link key={d.slug} href={`/docs/${d.slug}`}>
             <BookOpen size={23} />
             <div>
+              <span className="docs-card-label">GUIDE {String(docs.indexOf(d) + 1).padStart(2, '0')} · {d.sections.length} SECTIONS</span>
               <h2>{d.title}</h2>
               <p>{d.description}</p>
             </div>

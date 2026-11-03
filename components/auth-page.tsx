@@ -15,6 +15,7 @@ export function AuthPage({ signup,returnTo }: { signup: boolean;returnTo?:string
           SiteRadar.
         </Link>
         <div>
+          <span className="public-eyebrow">YOUR WEBSITE. IN FOCUS.</span>
           <h1>
             Every website has
             <br />a next step.
@@ -46,6 +47,7 @@ export function AuthPage({ signup,returnTo }: { signup: boolean;returnTo?:string
           Back to SiteRadar
         </Link>
         <div>
+          <span className="public-eyebrow">{signup ? 'LET’S GET STARTED' : 'YOUR WORKSPACE AWAITS'}</span>
           <h2>{signup ? "A clearer picture starts here." : "Welcome back."}</h2>
           <p>
             {signup
@@ -55,7 +57,7 @@ export function AuthPage({ signup,returnTo }: { signup: boolean;returnTo?:string
           <AuthForm signup={signup} returnTo={returnTo}/>
         </div>
         <p className="auth-local-note">
-          Your account and reports are stored on this SiteRadar server.
+          Built for clearer decisions. Created by AhmadJalhoom.
         </p>
       </section>
     </main>

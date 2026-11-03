@@ -8,7 +8,8 @@ export default function Docs() {
       <PublicHeader active="docs" />
       <main className="public-container docs-home">
         <div className="public-page-title">
-          <h1>A guide to a clearer view.</h1>
+          <span className="public-eyebrow">THE SITERADAR FIELD GUIDE</span>
+          <h1>A little guidance.<br />A clearer way forward.</h1>
           <p>
             Set up your projects, understand the measurements, and turn findings
             into fixes.

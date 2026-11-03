@@ -45,9 +45,11 @@ export default async function Article({
           </Link>
         </aside>
         <article className="docs-article">
+          <span className="public-eyebrow">SITERADAR DOCUMENTATION / {String(index + 1).padStart(2, '0')}</span>
           <h1>{d.title}</h1>
           <p className="article-description">{d.description}</p>
           <nav className="article-toc" aria-label="On this page">
+            <strong>In this guide</strong>
             {d.sections.map((s, i) => (
               <a href={`#section-${i}`} key={s.title}>
                 {s.title}
