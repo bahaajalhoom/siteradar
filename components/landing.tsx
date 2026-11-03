@@ -5,6 +5,8 @@ import {
   Check,
   ChartLineUp,
   Code,
+  FileText,
+  CaretDown,
   GlobeHemisphereWest,
   ShieldCheck,
 } from "@phosphor-icons/react/dist/ssr";
@@ -184,6 +186,32 @@ export async function Landing() {
             ))}
           </div>
         </section>
+        <section className={styles.repairSection} aria-labelledby="repair-title">
+          <div className={styles.repairCopy}>
+            <span className={styles.eyebrow}>THE REPORT IS JUST THE START</span>
+            <h2 id="repair-title">Find the issue.<br /><em>Make the next move.</em></h2>
+            <p>A score tells you where you stand. The evidence tells you what to change. Take selected findings straight into a focused brief for your developer.</p>
+            <ul>
+              <li><Check size={18} />Affected pages and observed evidence</li>
+              <li><Check size={18} />Priorities and practical recommendations</li>
+              <li><Check size={18} />A repair prompt you can copy and use</li>
+            </ul>
+            <Link href="/docs" className={styles.lightLink}>Explore the workflow <ArrowRight size={18} /></Link>
+          </div>
+          <div className={styles.repairBrief}>
+            <div className={styles.briefHeader}><FileText size={20} /><span>Website repair brief</span><span>WORKFLOW PREVIEW</span></div>
+            <div className={styles.briefBody}>
+              <span className={styles.briefLabel}>01 / OBSERVE</span>
+              <h3>Start with the evidence.</h3>
+              <p>Review the affected URL, the check that failed, and what was observed on the page.</p>
+              <div className={styles.briefDivider} />
+              <span className={styles.briefLabel}>02 / REPAIR</span>
+              <h3>Give every fix a clear scope.</h3>
+              <p>Select the findings that matter. Generate a brief with recommendations and verification steps.</p>
+              <div className={styles.briefResult}><ShieldCheck size={20} /><span>Re-run your audit to measure the change.</span></div>
+            </div>
+          </div>
+        </section>
         <section className="honesty-section public-container">
           <ShieldCheck size={35} />
           <div>
@@ -198,6 +226,17 @@ export async function Landing() {
               How keyword tracking works
               <ArrowRight size={16} />
             </Link>
+          </div>
+        </section>
+        <section className={styles.faq} aria-labelledby="faq-title">
+          <div><span className={styles.eyebrow}>A LITTLE MORE CLARITY</span><h2 id="faq-title">Good questions.<br />Clear answers.</h2><p>Get to know your next website audit.</p></div>
+          <div className={styles.questions}>
+            {[
+              ['What does SiteRadar check?', 'SiteRadar checks technical SEO, page content, performance and accessibility. Each report connects findings to affected pages and includes practical recommendations.'],
+              ['Is SiteRadar free?', 'Yes. The Free plan includes unlimited projects and audits. Crawl time and resource safeguards apply to keep the service available.'],
+              ['Do I need to install anything on my website?', 'No. Add your public HTTPS website and choose your audit settings. You must own the website or have permission to audit it.'],
+              ['Does a good score guarantee better search rankings?', 'No. An audit helps identify website improvements. Search rankings depend on many factors. Keyword position tracking requires a connected SerpApi account.'],
+            ].map(([question, answer]) => <details key={question}><summary>{question}<CaretDown size={18} aria-hidden="true" /></summary><p>{answer}</p></details>)}
           </div>
         </section>
         <section className="public-cta public-container">

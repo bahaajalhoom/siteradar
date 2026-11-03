@@ -1,6 +1,71 @@
 .landing {
   background: #f8faf5;
 }
+.landing :global(.public-header) { max-width: 1280px; padding-left: 40px; padding-right: 40px; }
+.landing :global(.public-header .btn) { border-radius: 7px; }
+.landing :global(.hero-secondary) { border-bottom: 1px solid #b8c9aa; padding-bottom: 4px; }
+.landing :global(.hero-secondary:hover) { color: #143c27; border-color: #315f3d; }
+.landing :global(.how-steps article) { position: relative; }
+.landing :global(.how-steps article > span) { display: inline-block; color: #456235; }
+.landing :global(.capability-list > article) { transition: background 160ms; }
+.landing :global(.capability-list > article:hover) { background: #f0f5ea; }
+.repairSection {
+  max-width: 1200px;
+  margin: 0 auto 72px;
+  background: #123d2b;
+  color: #f1f5e9;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 56px;
+  border-radius: 16px;
+}
+.repairCopy .eyebrow { color: #c4d8b3; }
+.repairCopy h2 { font-size: clamp(32px, 3.6vw, 46px); line-height: 1.15; letter-spacing: -1.8px; font-weight: 500; }
+.repairCopy h2 em { color: #cce6a6; font-style: normal; }
+.repairCopy > p { margin: 24px 0; font-size: 15px; color: #c1d0bf; line-height: 1.85; }
+.repairCopy ul { list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 14px; }
+.repairCopy li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #e1ebd9; }
+.repairCopy li svg { color: #cce6a6; }
+.lightLink { display: inline-flex; align-items: center; gap: 12px; font-size: 14px; padding-bottom: 6px; border-bottom: 1px solid #7c9e77; }
+.lightLink:hover { color: #cce6a6; }
+.repairBrief { background: #fbfcf7; color: #193a29; border: 1px solid #b7c9aa; border-radius: 10px; overflow: hidden; }
+.briefHeader { display: flex; align-items: center; gap: 10px; padding: 20px; border-bottom: 1px solid #dce5d4; font-size: 13px; }
+.briefHeader > span:last-child { margin-left: auto; font-family: var(--font-mono); font-size: 8px; color: #6b7c5e; }
+.briefBody { padding: 28px; }
+.briefLabel { font-size: 9px; letter-spacing: 1px; color: #627751; font-family: var(--font-mono); }
+.briefBody h3 { margin-top: 12px; font-weight: 600; font-size: 19px; letter-spacing: -.5px; }
+.briefBody p { font-size: 13px; line-height: 1.8; color: #64745a; margin-top: 10px; }
+.briefDivider { height: 1px; background: #dce5d4; margin: 24px 0; }
+.briefResult { display: flex; align-items: center; gap: 10px; font-size: 11px; background: #eaf1e0; padding: 14px; border-radius: 6px; margin-top: 24px; }
+.faq { max-width: 1200px; margin: 88px auto 0; display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
+.faq h2 { font-size: 42px; font-weight: 500; letter-spacing: -1.7px; line-height: 1.2; }
+.faq > div > p { margin-top: 20px; color: #64745a; font-size: 15px; }
+.questions { border-top: 1px solid #cdd9c4; }
+.questions details { border-bottom: 1px solid #cdd9c4; }
+.questions summary { cursor: pointer; list-style: none; padding: 24px 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; font-size: 15px; font-weight: 550; }
+.questions summary::-webkit-details-marker { display: none; }
+.questions summary:hover { color: #668348; }
+.questions summary:focus-visible { outline: 2px solid #357457; outline-offset: 4px; }
+.questions details[open] summary svg { transform: rotate(180deg); }
+.questions details p { color: #64745a; font-size: 14px; line-height: 1.85; padding: 0 28px 24px 0; }
+@media (max-width: 1240px) {
+  .repairSection { margin-left: 40px; margin-right: 40px; padding: 40px; gap: 32px; }
+  .faq { margin-left: 40px; margin-right: 40px; gap: 40px; }
+}
+@media (max-width: 900px) {
+  .repairSection { grid-template-columns: 1fr; }
+  .faq { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 600px) {
+  .landing :global(.public-header) { padding-left: 22px; padding-right: 22px; }
+  .repairSection { margin: 0 22px 40px; padding: 30px 22px; gap: 30px; }
+  .briefHeader { padding: 15px; flex-wrap: wrap; }
+  .briefBody { padding: 22px; }
+  .faq { margin: 48px 22px 0; }
+  .faq h2 { font-size: 32px; }
+}
 .eyebrow {
   display: inline-flex;
   align-items: center;
