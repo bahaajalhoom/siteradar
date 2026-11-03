@@ -1309,7 +1309,7 @@ export function Workspace({
                   ))}
                 </select>
               </div>
-              {category !== "All categories" && (
+              {category !== "All categories" && !audit.findings.some(f => f.category === category) && (
                 <section className="category-positive-panel" aria-label={`${category} positive signals`}>
                   <div className="section-heading">
                     <div>
