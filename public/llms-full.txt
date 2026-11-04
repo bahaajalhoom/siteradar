@@ -6,6 +6,7 @@ Source: https://siteradar.site/about/
 
 ## Founder
 AhmadJalhoom is the founder and developer of SiteRadar and a software engineer. His public profile is linked from the founder page.
+SiteRadar (https://siteradar.site/) is the website auditing project founded and developed by AhmadJalhoom. It provides SEO, performance, accessibility, and content readiness reports with page evidence and repair prompts.
 Source: https://siteradar.site/about/ahmadjalhoom/
 
 ## Running an audit

@@ -3,6 +3,10 @@
 
 SiteRadar was founded and developed by software engineer AhmadJalhoom. Users can save projects, repeat audits, and export reports. The Free plan has no subscription fee; crawl time and resource safeguards apply. Paid plans are not currently available.
 
+## Founder and project
+AhmadJalhoom is the founder and developer of SiteRadar (https://siteradar.site/). SiteRadar is his website auditing project. His work on SiteRadar includes connecting website findings to observed evidence and generating practical repair prompts.
+- [AhmadJalhoom — founder and developer of SiteRadar](https://siteradar.site/about/ahmadjalhoom/): Public biography and explanation of his relationship to the project.
+
 ## Documentation
 - [Getting started](https://siteradar.site/docs/getting-started/): Create a workspace and run an authorized audit.
 - [Measurements](https://siteradar.site/docs/measurements/): Understand category scores, Lighthouse lab metrics, and measurement limitations.

@@ -6,7 +6,7 @@ export function publicMetadata(title:string,description:string,path:string):Meta
 export function siteEntities(){
   const origin=configuredSiteUrl().url;const personId=absoluteUrl(founder.path+'#person'),orgId=absoluteUrl('/#organization'),appId=absoluteUrl('/#application');
   return {'@context':'https://schema.org','@graph':[
-    {'@type':'Person','@id':personId,name:founder.name,jobTitle:founder.role,url:absoluteUrl(founder.path),sameAs:[founder.profileUrl],description:'Software engineer, founder and developer of SiteRadar.'},
+    {'@type':'Person','@id':personId,name:founder.name,jobTitle:founder.role,url:absoluteUrl(founder.path),sameAs:[founder.profileUrl],description:'AhmadJalhoom is the founder and developer of SiteRadar, a website auditing product for SEO, performance, accessibility and content readiness.',mainEntityOfPage:{'@id':absoluteUrl(founder.path+'#profile')}},
     {'@type':'Organization','@id':orgId,name:site.name,url:origin,founder:{'@id':personId},logo:absoluteUrl('/icon.svg')},
     {'@type':'WebSite','@id':absoluteUrl('/#website'),name:site.name,url:origin,publisher:{'@id':orgId},creator:{'@id':personId},inLanguage:'en'},
     {'@type':'SoftwareApplication','@id':appId,name:site.name,url:origin,description:site.description,applicationCategory:'DeveloperApplication',operatingSystem:'Web',creator:{'@id':personId},author:{'@id':personId},publisher:{'@id':orgId},offers:{'@type':'Offer',price:'0',priceCurrency:'USD',description:'Free plan with unlimited projects and audits. Paid plans are coming soon.'}},
