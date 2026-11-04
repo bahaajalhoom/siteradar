@@ -44,8 +44,8 @@ export function PublicFooter() {
       <nav aria-label="Footer navigation">
         <Link href="/pricing">Pricing</Link>
         <Link href="/docs">Documentation</Link>
-        <Link href="/demo">Example report</Link>
-        <Link href="/app">Your workspace</Link>
+        <Link prefetch={false} href="/demo">Example report</Link>
+        <Link prefetch={false} href="/app">Your workspace</Link>
         <Link href="/about">About SiteRadar</Link>
       </nav>
       <span>© {new Date().getFullYear()} SiteRadar</span>

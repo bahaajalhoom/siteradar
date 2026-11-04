@@ -1,0 +1,18 @@
+# SiteRadar
+> SiteRadar audits public websites for SEO, Lighthouse lab performance, automated accessibility, technical issues, and content readiness. It connects findings to page evidence and provides repair prompts for developers.
+
+SiteRadar was founded and developed by software engineer AhmadJalhoom. Users can save projects, repeat audits, and export reports. The Free plan has no subscription fee; crawl time and resource safeguards apply. Paid plans are not currently available.
+
+## Documentation
+- [Getting started](https://siteradar.site/docs/getting-started/): Create a workspace and run an authorized audit.
+- [Measurements](https://siteradar.site/docs/measurements/): Understand category scores, Lighthouse lab metrics, and measurement limitations.
+- [Reports and repair prompts](https://siteradar.site/docs/reports-and-prompts/): Inspect evidence and prepare a repair brief.
+- [Search rankings](https://siteradar.site/docs/search-rankings/): Optional SerpApi connection for observed keyword positions.
+
+## Product and people
+- [Pricing](https://siteradar.site/pricing/): Current Free plan and optional external provider costs.
+- [About SiteRadar](https://siteradar.site/about/): Product purpose and measurement approach.
+- [AhmadJalhoom](https://siteradar.site/about/ahmadjalhoom/): Founder and developer profile.
+
+## Measurement limitations
+Scores summarize the checks collected in a particular audit. They do not guarantee rankings, indexing, AI citations, or complete accessibility compliance. Lighthouse results are lab measurements. Missing measurements are disclosed. Search positions require an optional connected provider and reflect the query context and returned results only.

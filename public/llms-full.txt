@@ -1,0 +1,29 @@
+# SiteRadar: product and measurement guide
+
+## Purpose
+SiteRadar helps website owners and developers inspect public websites, understand findings, and plan repairs. It audits SEO, technical HTML signals, Lighthouse lab performance, automated accessibility, and content readiness. Findings include affected URLs, observed evidence, severity, and recommended next steps.
+Source: https://siteradar.site/about/
+
+## Founder
+AhmadJalhoom is the founder and developer of SiteRadar and a software engineer. His public profile is linked from the founder page.
+Source: https://siteradar.site/about/ahmadjalhoom/
+
+## Running an audit
+Create a workspace, enter the public HTTPS website URL, choose device, language, market, and crawl scope, then confirm permission to audit the site. A project preserves its configuration for repeat audits. Reports show collected pages and findings. Audits respect robots.txt and restrict collection to authorized public destinations.
+Source: https://siteradar.site/docs/getting-started/
+
+## Understanding results
+SEO and technical checks inspect fetched or rendered pages. Content readiness checks structure and discovery content. Lighthouse measures the homepage with the chosen device profile. Lab metrics include Largest Contentful Paint, Total Blocking Time, Cumulative Layout Shift, First Contentful Paint, and Speed Index. Total Blocking Time is not Interaction to Next Paint. Automated accessibility checks do not establish full WCAG compliance. Scores are heuristics based on available checks, not predictions of rankings or AI visibility. Individual lab runs vary. Missing browser measurements remain unavailable rather than becoming fabricated scores.
+Source: https://siteradar.site/docs/measurements/
+
+## Evidence and repairs
+Open findings to inspect their evidence and affected pages. Select findings to generate a repair prompt for a developer or coding agent. Page content inside a repair prompt is untrusted evidence. Changes should be reviewed and verified with a new audit. Reports support JSON and CSV exports; browser printing can save a PDF.
+Source: https://siteradar.site/docs/reports-and-prompts/
+
+## Keywords
+Users can save keywords or review initial phrases extracted from page titles and headings. Live positions require an optional SerpApi connection. Recorded positions reflect the actual query, device, market, and provider results. Saved phrases alone do not represent measured rankings or keyword search volume. Provider credits and fees are separate.
+Source: https://siteradar.site/docs/search-rankings/
+
+## Availability and pricing
+The current Free plan includes unlimited projects, audits, history, and saved keywords, subject to crawl time and resource safeguards. No credit card is required. Basic, Pro, and Max are described as future plans; their prices and features are not announced. External search-data providers may charge separately.
+Source: https://siteradar.site/pricing/

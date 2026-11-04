@@ -38,7 +38,7 @@ export async function Landing() {
                 {user?'Open your workspace':'Audit your website'}
                 <ArrowRight size={19} />
               </Link>
-              <Link href="/demo" className="hero-secondary">
+              <Link prefetch={false} href="/demo" className="hero-secondary">
                 Explore a report
                 <ArrowUpRight size={17} />
               </Link>
@@ -62,7 +62,7 @@ export async function Landing() {
                 <p>See clearly.<br />Improve deliberately.</p>
               </div>
               <div className={styles.productContent}>
-                <div className={styles.productTitle}><div><span>WEBSITE INTELLIGENCE</span><h2>Your next move, in focus.</h2></div><Link href="/demo">Explore report <ArrowUpRight size={15} /></Link></div>
+                <div className={styles.productTitle}><div><span>WEBSITE INTELLIGENCE</span><h2>Your next move, in focus.</h2></div><Link prefetch={false} href="/demo">Explore report <ArrowUpRight size={15} /></Link></div>
                 <div className={styles.productOverview}>
                   <div className={styles.radarVisual} aria-hidden="true"><span /><span /><span /><Scan size={30} /></div>
                   <div><span className={styles.reportTag}>FROM AUDIT TO ACTION</span><h3>Everything connects.<br />Nothing gets lost.</h3><p>Understand the issue. See the evidence.<br />Know where to start.</p></div>

@@ -1,6 +1,13 @@
 .landing {
   background: #f8faf5;
 }
+.landing :global(.section-intro > p),
+.landing :global(.how-steps article > p),
+.landing :global(.capability-list article > div > p),
+.landing :global(.honesty-section p),
+.landing :global(.public-footer p),
+.landing :global(.public-footer > span) { color: #596b4f; }
+.landing :global(.public-footer p a) { color: inherit; }
 .homeHero { max-width: 1280px; margin: auto; padding: 68px 40px 52px; }
 .homeIntro { text-align: center; max-width: 820px; margin: auto; }
 .homeIntro .eyebrow { border: 1px solid #d5dfca; padding: 8px 14px; border-radius: 30px; margin-bottom: 25px; background: #f0f4e9; }
@@ -11,7 +18,7 @@
 .homeActions :global(.btn) { padding: 16px 24px; font-size: 15px; }
 .homeIntro :global(.hero-plan) { display: flex; width: 100%; justify-content: center; margin-top: 20px; }
 .productFrame { margin: 50px auto 0; border: 1px solid #cdd8c7; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px #213d2510; max-width: 1060px; text-align: left; }
-.windowBar { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; background: #eaf0e3; border-bottom: 1px solid #d4decc; font-family: var(--font-mono); font-size: 9px; color: #617457; }
+.windowBar { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; background: #eaf0e3; border-bottom: 1px solid #d4decc; font-family: var(--font-mono); font-size: 9px; color: #526449; }
 .windowBar > span { display: flex; align-items: center; gap: 7px; }
 .windowBar i { display: block; width: 7px; height: 7px; border: 1px solid #a8b69c; border-radius: 50%; }
 .productLayout { display: grid; grid-template-columns: 185px minmax(0,1fr); }
@@ -23,7 +30,7 @@
 .productNav p { margin-top: auto; padding: 24px 10px 0; font-size: 10px; line-height: 1.8; color: #aac09f; }
 .productContent { background: #fcfdf9; padding: 28px; }
 .productTitle { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 22px; }
-.productTitle div > span { font-family: var(--font-mono); font-size: 8px; letter-spacing: 1.1px; color: #74836a; }
+.productTitle div > span { font-family: var(--font-mono); font-size: 8px; letter-spacing: 1.1px; color: #596b4f; }
 .productTitle h2 { font-size: 25px; font-weight: 550; letter-spacing: -1px; margin-top: 6px; }
 .productTitle a { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; border: 1px solid #d7e0ce; border-radius: 6px; padding: 9px 12px; white-space: nowrap; }
 .productTitle a:hover { background: #eaf1e1; }
@@ -36,16 +43,16 @@
 .radarVisual::after { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #6e914c; top: 13px; left: 35px; }
 .reportTag { color: #5e7849; font-family: var(--font-mono); font-size: 8px; letter-spacing: .7px; }
 .productOverview h3 { font-size: 22px; letter-spacing: -.8px; line-height: 1.3; margin: 8px 0; font-weight: 550; }
-.productOverview p { font-size: 11px; line-height: 1.8; color: #6e7e62; }
+.productOverview p { font-size: 11px; line-height: 1.8; color: #596b4f; }
 .checkList { display: grid; gap: 14px; border-left: 1px solid #e1e8da; padding-left: 22px; }
 .checkList > span { display: flex; align-items: center; gap: 8px; font-size: 10px; color: #5e7450; }
 .reportColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
 .reportColumns > div { border: 1px solid #dce4d4; border-radius: 8px; padding: 20px; background: #f4f7ef; }
 .reportColumns svg { color: #69884e; }
 .reportColumns h3 { margin: 10px 0 6px; font-size: 15px; font-weight: 600; }
-.reportColumns p { font-size: 11px; color: #6d7d61; line-height: 1.7; max-width: 250px; }
-.reportColumns div > span { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 8px; letter-spacing: .5px; margin-top: 18px; color: #68834f; }
-.productNote { font-size: 9px; color: #6b7c5f; display: flex; align-items: center; gap: 6px; margin-top: 16px; }
+.reportColumns p { font-size: 11px; color: #596b4f; line-height: 1.7; max-width: 250px; }
+.reportColumns div > span { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 8px; letter-spacing: .5px; margin-top: 18px; color: #526b40; }
+.productNote { font-size: 9px; color: #596b4f; display: flex; align-items: center; gap: 6px; margin-top: 16px; }
 @media (max-width: 1000px) {
   .productOverview { grid-template-columns: 120px 1fr; }
   .checkList { display: none; }
@@ -106,7 +113,7 @@
 .lightLink:hover { color: #cce6a6; }
 .repairBrief { background: #fbfcf7; color: #193a29; border: 1px solid #b7c9aa; border-radius: 10px; overflow: hidden; }
 .briefHeader { display: flex; align-items: center; gap: 10px; padding: 20px; border-bottom: 1px solid #dce5d4; font-size: 13px; }
-.briefHeader > span:last-child { margin-left: auto; font-family: var(--font-mono); font-size: 8px; color: #6b7c5e; }
+.briefHeader > span:last-child { margin-left: auto; font-family: var(--font-mono); font-size: 8px; color: #596b4f; }
 .briefBody { padding: 28px; }
 .briefLabel { font-size: 9px; letter-spacing: 1px; color: #627751; font-family: var(--font-mono); }
 .briefBody h3 { margin-top: 12px; font-weight: 600; font-size: 19px; letter-spacing: -.5px; }
@@ -239,7 +246,7 @@
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 1px;
-  color: #6d7c63;
+  color: #596b4f;
 }
 .landing :global(.how-section) {
   margin-top: 24px;

@@ -46,7 +46,7 @@ import {
   X,
   type Icon,
 } from "@phosphor-icons/react";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { exampleAudit, exampleKeywords } from "@/lib/example";
 import {
   repairPrompt,
@@ -394,6 +394,7 @@ export function Workspace({
   if (audit.id === "empty"&&view!=="Settings"&&view!=="Integrations")
     return (
       <div className="public-site">
+        <Toaster position="bottom-right" richColors closeButton />
         <header className="public-header">
           <Link className="public-brand" href="/">
             <Scan size={28} />
@@ -436,6 +437,7 @@ export function Workspace({
     );
   return (
     <div className="app-shell">
+      <Toaster position="bottom-right" richColors closeButton />
       <a href="#main" className="skip-link">
         Skip to report
       </a>
