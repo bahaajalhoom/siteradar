@@ -1,4 +1,5 @@
 import type { Audit } from "@/lib/types";
+import { SemanticReviewPanel } from './semantic-review';
 import { MagnifyingGlass, ArrowRight, GearSix } from "@phosphor-icons/react";
 export function LiveKeywords({
   audit,
@@ -13,6 +14,7 @@ export function LiveKeywords({
   const found = checked.filter((r) => r.position !== null);
   return (
     <>
+      <SemanticReviewPanel audit={audit}/>
       <div className="section-heading">
         <div>
           <h2>Your saved keywords</h2>

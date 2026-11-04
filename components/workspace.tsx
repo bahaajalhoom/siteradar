@@ -65,6 +65,7 @@ import { PerformancePanel } from "./performance-panel";
 import { LiveKeywords } from "./live-keywords";
 import { LiveCompetitors } from "./live-competitors";
 import { DiscoveryFiles, PositiveSignals } from "./audit-evidence";
+import { SemanticReviewPanel } from './semantic-review';
 import {apiFetch} from "@/lib/api";
 
 type View=WorkspaceView;
@@ -1260,6 +1261,8 @@ export function Workspace({
           {findingDetail&&<FindingDetails audit={audit} finding={findingDetail} backHref={hrefFor('Issues')} pagesHref={hrefFor('Pages')} onAdd={()=>navigate('Fix prompt',{selectedIds:[...new Set([...selected,findingDetail.id])]})}/>}
           {pageDetail&&<PageDetails audit={audit} page={pageDetail} backHref={hrefFor('Pages')} issuesHref={hrefFor('Issues')}/>}
           {view === "Issues" && !findingDetail && (
+            <>
+            {(category === 'All categories' || category === 'GEO readiness' || category === 'SEO') && <SemanticReviewPanel audit={audit}/>}
             <section className="panel report-panel">
               <div className="section-heading">
                 <h2>
@@ -1361,6 +1364,7 @@ export function Workspace({
                 <Empty text="No findings match these filters." />
               )}
             </section>
+            </>
           )}
           {view === "Pages" && !pageDetail && (
             <section className="panel report-panel">

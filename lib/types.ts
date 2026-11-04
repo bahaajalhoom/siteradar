@@ -74,6 +74,12 @@ export type PerformanceReport = {
   warnings: string[];
 };
 export type Audit = {
+  semanticReview?: {
+    status: 'completed' | 'failed' | 'disabled'; model: string; reviewedAt: string;
+    summary?: string; error?: string; rejectedItems?: number; totalKeywords?: number;
+    keywords?: {phrase:string;fit:'relevant'|'broad'|'mismatch'|'uncertain';reason:string;source:string;quote:string;suggestion:string}[];
+    sources?: {id:string;url:string;characters:number}[];
+  };
   id: string;
   name: string;
   url: string;
