@@ -255,7 +255,7 @@ export function Workspace({
   }
   function navigate(next:View,options?:{selectedIds?:string[];category?:string;search?:string}){setMobileOpen(false);setProjectOpen(false);router.push(hrefFor(next,options));}
   function chooseAudit(a:Audit,scope:'audit'|'project'='audit'){setProjectOpen(false);setMobileOpen(false);setSelected([]);router.push(demo?'/demo':workspaceHref('Overview',{auditId:a.id,projectId:a.projectId,scope}));}
-  function openFinding(f:Finding){router.push(hrefFor('Issues')+'/'+encodeURIComponent(f.id));}
+  function findingHref(finding: Finding) { return hrefFor('Issues') + '/' + encodeURIComponent(finding.id); }
   function created(a: Audit) {
     setAudit(a);
     onAuditUpdate?.(a);
@@ -1211,10 +1211,10 @@ export function Workspace({
                   </div>
                   <div className="priority-list">
                     {audit.findings.slice(0, 4).map((f, i) => (
-                      <button
+                      <Link
                         className="priority-row"
                         key={f.id}
-                        onClick={() => openFinding(f)}
+                        href={findingHref(f)}
                       >
                         <span
                           className={`priority-indicator ${f.severity.toLowerCase()}`}
@@ -1237,7 +1237,7 @@ export function Workspace({
                         </div>
                         <Badge severity={f.severity} />
                         <CaretRight size={14} />
-                      </button>
+                      </Link>
                     ))}
                     {!audit.findings.length && (
                       <div className="empty-state">
@@ -1360,24 +1360,24 @@ export function Workspace({
                       onChange={() => toggleFinding(f.id)}
                       aria-label={`Add ${f.title} to repair prompt`}
                     />
-                    <button
+                    <Link
                       className="finding-title"
-                      onClick={() => openFinding(f)}
+                      href={findingHref(f)}
                     >
                       <span className="rule-id">{f.rule}</span>
                       <strong>{f.title}</strong>
                       <span>
                         {f.pages.length} pages · {f.category} · {f.kind}
                       </span>
-                    </button>
+                    </Link>
                     <Badge severity={f.severity} />
-                    <button
+                    <Link
                       className="icon-btn"
                       aria-label={`View ${f.title}`}
-                      onClick={() => openFinding(f)}
+                      href={findingHref(f)}
                     >
                       <ArrowUpRight size={18} />
-                    </button>
+                    </Link>
                   </div>
                 ))}
               </div>
