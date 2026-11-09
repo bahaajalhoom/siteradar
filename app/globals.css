@@ -1652,7 +1652,7 @@ td strong {
 .history-list {
   margin-top: 20px;
 }
-.history-list > button {
+.history-list > :is(button, .history-choice) {
   width: 100%;
   display: flex;
   align-items: center;
@@ -1660,11 +1660,12 @@ td strong {
   background: none;
   border: 0;
   border-bottom: 1px solid var(--border);
-  text-align: left;
+  text-align: start;
   padding: 18px 0;
 }
-.history-list > button > div {
+.history-list > :is(button, .history-choice) > div {
   flex: 1;
+  min-width: 0;
 }
 .history-list strong {
   font-size: 12px;
@@ -1833,7 +1834,7 @@ td strong {
   color: #65705b;
   font-size: 10px;
 }
-.project-popover > button {
+.project-popover > :is(button, .project-choice) {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1842,14 +1843,14 @@ td strong {
   border: 0;
   padding: 10px;
   border-radius: 5px;
-  text-align: left;
+  text-align: start;
   font-size: 11px;
   color: #5d724d;
 }
-.project-popover > button:hover {
+.project-popover > :is(button, .project-choice):hover {
   background: #f3f6ec;
 }
-.project-popover > button > span:nth-child(2) {
+.project-popover > :is(button, .project-choice) > span:nth-child(2) {
   flex: 1;
 }
 .project-popover small {
@@ -2946,18 +2947,18 @@ form input[readonly] {
   .integration-row p {
     font-size: 10px;
   }
-  .history-list > button {
+  .history-list > :is(button, .history-choice) {
     gap: 10px;
     flex-wrap: wrap;
   }
-  .history-list > button > div {
+  .history-list > :is(button, .history-choice) > div {
     min-width: 65%;
   }
-  .history-list > button .status-pill {
-    margin-left: 55px;
+  .history-list > :is(button, .history-choice) .status-pill {
+    margin-inline-start: 55px;
   }
-  .history-list > button > svg {
-    margin-left: auto;
+  .history-list > :is(button, .history-choice) > svg {
+    margin-inline-start: auto;
   }
   .project-popover {
     left: 20px;

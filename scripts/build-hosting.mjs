@@ -28,6 +28,8 @@ for (const page of ['sign-in', 'sign-up']) {
 }
 const workspace = join(stage, 'components/workspace.tsx');
 await writeFile(workspace, (await readFile(workspace, 'utf8')).replace('import Link from "next/link";', 'import Link from "./hosting-navigation";').replace('import {useRouter} from "next/navigation";', 'import {useHostingRouter as useRouter} from "./hosting-navigation";'));
+const resourceDetails = join(stage, 'components/resource-details.tsx');
+await writeFile(resourceDetails, (await readFile(resourceDetails, 'utf8')).replace("import Link from 'next/link';", "import Link from './hosting-navigation';"));
 const auth = join(stage, 'components/auth-form.tsx');
 await writeFile(auth, (await readFile(auth, 'utf8')).replace('router.replace(safeReturnPath(returnTo));', 'window.location.assign(safeReturnPath(new URLSearchParams(window.location.search).get("next") || returnTo));').replace('router.refresh();', ''));
 const result = spawnSync(process.execPath, ['scripts/next.mjs', 'build', '--webpack'], { cwd: stage, stdio: 'inherit', env: { ...process.env, APP_BASE_URL: 'https://siteradar.site', NEXT_PUBLIC_API_URL: 'https://api-siteradar.apps.taqat.academy' } });

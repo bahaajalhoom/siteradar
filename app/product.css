@@ -565,11 +565,11 @@ form textarea {
   gap: 18px;
   margin-top: 22px;
 }
-.project-summary-list > button {
+.project-summary-list > :is(button, .project-choice) {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 8px;
-  text-align: left;
+  text-align: start;
   padding: 22px;
   display: flex;
   align-items: center;
@@ -585,8 +585,9 @@ form textarea {
   color: var(--muted);
   margin-top: 5px;
 }
-.project-summary-list > button > div {
+.project-summary-list > :is(button, .project-choice) > div {
   flex: 1;
+  min-width: 0;
 }
 @media (max-width: 700px) {
   .public-header {

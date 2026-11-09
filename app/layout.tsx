@@ -3,6 +3,7 @@ import "./globals.css";
 import "./product.css";
 import "./public-refresh.css";
 import "./locale.css";
+import "./report-details.css";
 import { UiLanguageProvider } from '@/components/ui-language';
 import {publicMetadata} from '@/lib/seo';
 import {configuredSiteUrl,site} from '@/lib/site';

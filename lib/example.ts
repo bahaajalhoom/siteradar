@@ -98,6 +98,7 @@ const findings: Finding[] = [
   },
 ];
 const pages: AuditPage[] = paths.map((p, i) => ({
+  id: `example-page-${i + 1}`,
   url: `https://formandfield.example${p}`,
   status: 200,
   title: [
