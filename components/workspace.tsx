@@ -1,4 +1,5 @@
 "use client";
+import { LanguageSwitch, UiText, useUiLanguage } from '@/components/ui-language';
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
@@ -97,7 +98,7 @@ function Badge({ severity }: { severity: string }) {
   return (
     <span className={`badge ${severity.toLowerCase()}`}>
       <span />
-      {severity}
+      <UiText text={severity} />
     </span>
   );
 }
@@ -134,6 +135,8 @@ export function Workspace({
   savedProjects=[],
   initialSelected=EMPTY_SELECTION,
   initialFilters,
+  onAuditUpdate,
+  onHistoryUpdate,
 }: {
   user?: User;
   initialAudits?: Audit[];
@@ -143,8 +146,11 @@ export function Workspace({
   savedProjects?:Project[];
   initialSelected?:string[];
   initialFilters?:{category?:string;search?:string};
+  onAuditUpdate?: (audit: Audit) => void;
+  onHistoryUpdate?: (audits: Audit[]) => void;
 }) {
   const router=useRouter();
+  const { t } = useUiLanguage();
   const currentRoute=route??{view:demo?'Overview':'Projects',scope:'workspace'} as WorkspaceRoute;
   const view=currentRoute.view;
   const [audit, setAudit] = useState<Audit>(initialAudit??(demo?exampleAudit:initialAudits[0]??emptyAudit)),
@@ -172,6 +178,7 @@ export function Workspace({
       if (!r.ok) throw new Error("Could not load saved scans.");
       const json = await r.json();
       setHistory(json.data);
+      onHistoryUpdate?.(json.data);
       if (json.data[0]) setAudit((current) => current.id === "empty" ? json.data[0] : current);
       setHistoryError("");
     } catch (e) {
@@ -179,7 +186,7 @@ export function Workspace({
     } finally {
       setLoadingHistory(false);
     }
-  }, [demo]);
+  }, [demo, onHistoryUpdate]);
   useEffect(() => {
     void refreshHistory();
     try {
@@ -194,16 +201,24 @@ export function Workspace({
   useEffect(()=>{if(initialAudit)setAudit(initialAudit);setHistory(initialAudits);},[initialAudit,initialAudits]);
   useEffect(()=>{if(view==='Fix prompt')setSelected(initialSelected);setSearch(initialFilters?.search??'');setCategory(initialFilters?.category??'All categories');setSeverity('All severities');},[view,initialSelected,initialFilters]);
   useEffect(() => {
+    setMobileOpen(false);
+    setProjectOpen(false);
+    setExportOpen(false);
+  }, [view, currentRoute.detailId]);
+  useEffect(() => {
     if (audit.synthetic || !["queued", "running"].includes(audit.status))
       return;
     let disposed = false;
-    const timer = setInterval(async () => {
+    const controller = new AbortController();
+    let timer: ReturnType<typeof setTimeout>;
+    async function poll() {
       try {
-        const r = await apiFetch(`/api/audits/${audit.id}`);
+        const r = await apiFetch(`/api/audits/${audit.id}`, { signal: controller.signal });
         if (!r.ok) throw new Error();
         const json = await r.json();
         if (!disposed) {
           setAudit(json.data);
+          onAuditUpdate?.(json.data);
           if (!["queued", "running"].includes(json.data.status)) {
             void refreshHistory();
             toast(
@@ -211,6 +226,7 @@ export function Workspace({
                 ? "Your report is ready."
                 : "Scan stopped. See the activity log for details.",
             );
+            return;
           }
         }
       } catch {
@@ -219,12 +235,15 @@ export function Workspace({
             id: "progress",
           });
       }
-    }, 2000);
+      if (!disposed) timer = setTimeout(poll, 2000);
+    }
+    timer = setTimeout(poll, 2000);
     return () => {
       disposed = true;
+      controller.abort();
       clearInterval(timer);
     };
-  }, [audit.id, audit.status, audit.synthetic, refreshHistory]);
+  }, [audit.id, audit.status, audit.synthetic, refreshHistory, onAuditUpdate]);
   function hrefFor(next:View,options?:{selectedIds?:string[];category?:string;search?:string}){
     let href=workspaceHref(next,{auditId:audit.id==='empty'?undefined:audit.id,projectId:audit.projectId,scope:currentRoute.scope});
     if(demo){const slug=next==='Overview'?'':next==='Projects'?'projects':next==='Integrations'?'settings/integrations':next==='Settings'?'settings':({Issues:'issues',Pages:'pages',Performance:'performance',Keywords:'keywords',Competitors:'competitors','Fix prompt':'fix-prompt','Audit history':'audits'} as Partial<Record<View,string>>)[next];href='/demo'+(slug?'/'+slug:'');}
@@ -239,6 +258,7 @@ export function Workspace({
   function openFinding(f:Finding){router.push(hrefFor('Issues')+'/'+encodeURIComponent(f.id));}
   function created(a: Audit) {
     setAudit(a);
+    onAuditUpdate?.(a);
     chooseAudit(a);
     void refreshHistory();
   }
@@ -319,6 +339,7 @@ export function Workspace({
       const json = await r.json();
       if (!r.ok) throw new Error();
       setAudit(json.data);
+      onAuditUpdate?.(json.data);
       void refreshHistory();
     } catch {
       toast.error("Could not cancel. Try again.");
@@ -402,30 +423,30 @@ export function Workspace({
             SiteRadar.
           </Link>
           <nav>
-            <Link href="/pricing">Free · Unlimited</Link>
-            <Link href="/docs">Docs</Link>
+            <Link href="/pricing"><UiText text={"Free · Unlimited"} /></Link>
+            <Link href="/docs"><UiText text={"Docs"} /></Link>
           </nav>
           <button className="btn" onClick={signOut}>
-            Sign out
+            <UiText text={"Sign out"} />
           </button>
+          <LanguageSwitch />
         </header>
         <main className="public-container">
           <div className="workspace-empty">
             <GlobeHemisphereWest size={46} />
             <h1>Welcome, {user?.name.split(" ")[0] ?? "there"}.</h1>
             <p>
-              Add your website once. We’ll remember it, collect real
-              measurements, and build a clear plan for what to improve.
+              <UiText text={"Add your website once. We’ll remember it, collect real measurements, and build a clear plan for what to improve."} />
             </p>
             <button className="btn primary" onClick={newWebsite}>
               <Plus size={19} />
-              Add your first website
+              <UiText text={"Add your first website"} />
             </button>
             <p>
-              <Link href="/demo">Explore an example report</Link> ·{" "}
+              <Link href="/demo"><UiText text={"Explore an example report"} /></Link> ·{" "}
               <Link href="/docs/getting-started">
-                Read the getting-started guide
-              </Link> · <Link href="/app/settings/integrations">Set up integrations</Link>
+                <UiText text={"Read the getting-started guide"} />
+              </Link> · <Link href="/app/settings/integrations"><UiText text={"Set up integrations"} /></Link>
             </p>
           </div>
         </main>
@@ -440,13 +461,13 @@ export function Workspace({
     <div className="app-shell">
       <Toaster position="bottom-right" richColors closeButton />
       <a href="#main" className="skip-link">
-        Skip to report
+        <UiText text={"Skip to report"} />
       </a>
       {mobileOpen && (
         <button
           className="sidebar-scrim"
           onClick={() => setMobileOpen(false)}
-          aria-label="Close navigation"
+          aria-label={t("Close navigation")}
         />
       )}
       <aside className={`sidebar ${mobileOpen ? "is-open" : ""}`}>
@@ -463,26 +484,26 @@ export function Workspace({
             SiteRadar<span className="brand-dot">.</span>
           </span>
         </a>
-        <div className="sidebar-workspace-name">{workspaceName}</div>
+        <div className="sidebar-workspace-name">{t(workspaceName)}</div>
         <div className="workspace-picker">
           <span className="workspace-avatar">S</span>
           <div>
             <strong>{workspaceName}</strong>
-            <span>Personal workspace</span>
+            <span><UiText text={"Personal workspace"} /></span>
           </div>
           <CaretDown size={14} />
         </div>
-        <div className="nav-caption">WORKSPACE</div>
+        <div className="nav-caption"><UiText text={"WORKSPACE"} /></div>
         <button
           className={`nav-item ${view==='Projects'?'active':''}`}
           onClick={() => navigate("Projects")}
         >
           <FolderSimple size={19} />
-          All projects
+          <UiText text={"All projects"} />
           <span className="nav-count">{demo ? 1 : projects.length}</span>
         </button>
         <div className="nav-caption project-caption">
-          CURRENT PROJECT
+          <UiText text={"CURRENT PROJECT"} />
           <span className="tiny-status" />
         </div>
         <button
@@ -503,7 +524,7 @@ export function Workspace({
               href={hrefFor(name)} aria-current={view===name?'page':undefined}
             >
               <Icon size={19} weight={view === name ? "fill" : "regular"} />
-              <span>{name}</span>
+              <span>{t(name)}</span>
               {name === "Issues" && (
                 <span className="nav-count issue-count">{openIssues}</span>
               )}
@@ -515,14 +536,14 @@ export function Workspace({
             onClick={() => navigate("Audit history")}
           >
             <Clock size={19} />
-            Audit history
+            <UiText text={"Audit history"} />
           </button>
           <button
             className={`nav-item ${view === "Integrations" ? "active" : ""}`}
             onClick={() => navigate("Integrations")}
           >
             <SlidersHorizontal size={19} />
-            Integrations
+            <UiText text={"Integrations"} />
           </button>
         </nav>
         <div className="sidebar-bottom">
@@ -537,17 +558,17 @@ export function Workspace({
               More things worth fixing.
             </p>
             <button onClick={newWebsite}>
-              Run a new audit
+              <UiText text={"Run a new audit"} />
               <ArrowUpRight size={16} />
             </button>
           </div>
           <div className="sidebar-utility">
             <Link href="/docs">
               <Question size={16} />
-              Docs
+              <UiText text={"Docs"} />
             </Link>
             <Link href="/pricing">
-              Free · Unlimited
+              <UiText text={"Free · Unlimited"} />
               <ArrowUpRight size={14} />
             </Link>
           </div>
@@ -556,14 +577,14 @@ export function Workspace({
             onClick={() => navigate("Settings")}
           >
             <GearSix size={19} />
-            Settings
+            <UiText text={"Settings"} />
           </button>
           <div className="profile">
             <span className="avatar">SR</span>
             <div>
               <strong>{user?.name ?? "Example visitor"}</strong>
               <span>
-                {demo ? "Example workspace" : "Free plan · Unlimited"}
+                {demo ? <UiText text={"Example workspace"} /> : <UiText text={"Free plan · Unlimited"} />}
               </span>
             </div>
             {user && (
@@ -583,27 +604,28 @@ export function Workspace({
           <div className="breadcrumbs">
             <button
               className="icon-btn mobile-menu"
-              aria-label="Open navigation"
+              aria-label={t("Open navigation")}
               onClick={() => setMobileOpen(true)}
             >
               <List size={22} />
             </button>
-            <span className="breadcrumb-root">Workspace</span>
+            <span className="breadcrumb-root"><UiText text={"Workspace"} /></span>
             <CaretRight size={12} />
             <button onClick={() => setProjectOpen(!projectOpen)}>
               {audit.name}
             </button>
             <CaretRight size={12} />
-            <strong>{view}</strong>
+            <strong>{t(view)}</strong>
           </div>
           <div className="topbar-right">
+            <LanguageSwitch />
             <span className="local-indicator">
               <i />
-              Local workspace
+              <UiText text={"Local workspace"} />
             </span>
             <button
               className={`icon-btn ${notifications ? "pressed" : ""}`}
-              aria-label="Notifications"
+              aria-label={t("Notifications")}
               onClick={() => setNotifications(!notifications)}
             >
               <Bell size={20} />
@@ -613,7 +635,7 @@ export function Workspace({
           </div>
           {notifications && (
             <div className="notification-popover">
-              <h3>Workspace activity</h3>
+              <h3><UiText text={"Workspace activity"} /></h3>
               <p>
                 {audit.synthetic
                   ? "You’re viewing the example report. Run an audit to collect your own evidence."
@@ -626,7 +648,7 @@ export function Workspace({
                   setNotifications(false);
                 }}
               >
-                View audit history
+                <UiText text={"View audit history"} />
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -635,7 +657,7 @@ export function Workspace({
         {projectOpen && (
           <div className="project-popover">
             <div className="popover-heading">
-              Switch project
+              <UiText text={"Switch project"} />
               <button
                 className="icon-btn"
                 onClick={() => setProjectOpen(false)}
@@ -648,7 +670,7 @@ export function Workspace({
               <button onClick={() => chooseAudit(exampleAudit)}>
                 <span className="project-letter">f</span>
                 <span>
-                  Form & Field<small>Example project</small>
+                  Form & Field<small><UiText text={"Example project"} /></small>
                 </span>
                 {audit.synthetic && <Check size={16} />}
               </button>
@@ -659,7 +681,7 @@ export function Workspace({
                 <span>
                   {a.name}
                   <small>
-                    {a.status} ·{" "}
+                    {t(a.status)} ·{" "}
                     {new Date(a.createdAt).toLocaleDateString("en-GB", {
                       timeZone: "Asia/Jerusalem",
                     })}
@@ -675,7 +697,7 @@ export function Workspace({
               }}
             >
               <Plus size={18} />
-              Audit a new website
+              <UiText text={"Audit a new website"} />
             </button>
           </div>
         )}
@@ -683,14 +705,14 @@ export function Workspace({
           {demo && (
             <div className="demo-banner">
               You’re exploring an illustrative report.{" "}
-              <Link href="/sign-up">Create your free workspace</Link>
+              <Link href="/sign-up"><UiText text={"Create your free workspace"} /></Link>
             </div>
           )}
           <div className="page-heading">
             <div>
-              <h1>{titles[view]}</h1>
+              <h1>{t(titles[view])}</h1>
               <p>
-                {view === "Overview"
+                {t(view === "Overview"
                   ? "A complete picture of your search health. A clear idea of what’s next."
                   : view === "Issues"
                     ? "Prioritized findings, backed by page-level evidence."
@@ -698,7 +720,7 @@ export function Workspace({
                       ? "A practical repair brief, built from the issues you choose."
                       : view === "Integrations"
                         ? "Keep external measurements connected to their source."
-                        : "Search intelligence you can trace back to the evidence."}
+                        : "Search intelligence you can trace back to the evidence.")}
               </p>
             </div>
             <div className="heading-actions">
@@ -708,15 +730,15 @@ export function Workspace({
                   onClick={() => setExportOpen(!exportOpen)} disabled={audit.id==='empty'}
                 >
                   <DownloadSimple size={16} />
-                  Export report
+                  <UiText text={"Export report"} />
                   <CaretDown size={12} />
                 </button>
                 {exportOpen && (
                   <div className="export-menu">
                     {["PDF", "CSV", "JSON"].map((f) => (
                       <button key={f} onClick={() => exportReport(f)}>
-                        Export {f}
-                        {f === "PDF" && <small>Print to PDF</small>}
+                        <UiText text={"Export"} /> {f}
+                        {f === "PDF" && <small><UiText text={"Print to PDF"} /></small>}
                       </button>
                     ))}
                   </div>
@@ -726,7 +748,7 @@ export function Workspace({
                 <>
                   <button className="btn" onClick={configure}>
                     <GearSix size={17} />
-                    Scan settings
+                    <UiText text={"Scan settings"} />
                   </button>
                   <button
                     className="btn primary"
@@ -737,13 +759,13 @@ export function Workspace({
                       size={17}
                       className={rerunning ? "spin" : ""}
                     />
-                    Run again
+                    <UiText text={"Run again"} />
                   </button>
                 </>
               )}
               <button className="btn" onClick={newWebsite}>
                 <Plus size={17} />
-                New website
+                <UiText text={"New website"} />
               </button>
             </div>
           </div>
@@ -768,11 +790,11 @@ export function Workspace({
             <div className="scan-context">
               <span>
                 <GlobeHemisphereWest size={14} />
-                {audit.config.country}
+                {t(audit.config.country)}
               </span>
               <span>
                 <Monitor size={14} />
-                {audit.config.device}
+                {t(audit.config.device)}
               </span>
               <span>
                 <Clock size={14} />
@@ -788,11 +810,11 @@ export function Workspace({
               </span>
               <span className={`status-pill ${active ? "pending" : ""}`}>
                 <i />
-                {active
+                {t(active
                   ? "Scan in progress"
                   : audit.status === "completed"
                     ? "Audit complete"
-                    : audit.status}
+                    : audit.status)}
               </span>
             </div>
           </div>}
@@ -800,13 +822,13 @@ export function Workspace({
             <div className="example-label">
               <Info size={14} />
               <span>
-                Example workspace{" "}
+                <UiText text={"Example workspace"} />{" "}
                 <span className="example-detail">
                   · Explore a sample report. All measurements are illustrative.
                 </span>
               </span>
               <button onClick={newWebsite}>
-                Audit your website
+                <UiText text={"Audit your website"} />
                 <ArrowRight size={13} />
               </button>
             </div>
@@ -815,13 +837,13 @@ export function Workspace({
               <ShieldCheck size={15} />
               <span>
                 {audit.performance
-                  ? "Rendered-page audit · Lighthouse and axe measured on the homepage"
+                  ? <UiText text={"Rendered-page audit · Lighthouse and axe measured on the homepage"} />
                   : active
-                    ? "Audit in progress · measurements will appear as checks finish"
-                    : "Page observations collected · run again to add current browser measurements"}
+                    ? <UiText text={"Audit in progress · measurements will appear as checks finish"} />
+                    : <UiText text={"Page observations collected · run again to add current browser measurements"} />}
               </span>
               <button onClick={() => navigate("Integrations")}>
-                View capabilities
+                <UiText text={"View capabilities"} />
                 <ArrowRight size={13} />
               </button>
             </div>
@@ -835,19 +857,19 @@ export function Workspace({
                   {active ? (
                     <>
                       <SpinnerGap className="spin" size={18} />{" "}
-                      {audit.status === "queued"
+                      {t(audit.status === "queued"
                         ? "Your scan is queued"
-                        : "Collecting page evidence"}
+                        : "Collecting page evidence")}
                     </>
                   ) : audit.status === "failed" ? (
-                    "The scan needs your attention"
+                    t("The scan needs your attention")
                   ) : (
-                    "Scan cancelled"
+                    t("Scan cancelled")
                   )}
                 </h2>
                 {active ? (
                   <button className="btn" onClick={cancel}>
-                    Cancel scan
+                    <UiText text={"Cancel scan"} />
                   </button>
                 ) : (
                   <button
@@ -855,7 +877,7 @@ export function Workspace({
                     onClick={runAgain}
                     disabled={rerunning}
                   >
-                    Retry saved settings
+                    <UiText text={"Retry saved settings"} />
                   </button>
                 )}
               </div>
@@ -877,10 +899,10 @@ export function Workspace({
           {view === "Projects" && (
             <section className="panel report-panel">
               <div className="section-heading">
-                <h2>Saved websites</h2>
+                <h2><UiText text={"Saved websites"} /></h2>
                 <button className="btn primary" onClick={newWebsite}>
                   <Plus size={18} />
-                  Add website
+                  <UiText text={"Add website"} />
                 </button>
               </div>
               <div className="project-summary-list">
@@ -891,10 +913,10 @@ export function Workspace({
                       <strong>{a.name}</strong>
                       <span>
                         {a.pages.length} pages · {a.findings.length} findings ·{" "}
-                        {a.status}
+                        {t(a.status)}
                       </span>
                       <span>
-                        Last audit:{" "}
+                        <UiText text={"Last audit:"} />{" "}
                         {new Date(a.createdAt).toLocaleDateString("en-GB", {
                           timeZone: "Asia/Jerusalem",
                         })}
@@ -926,7 +948,7 @@ export function Workspace({
                     disabled={active || rerunning}
                   >
                     <ArrowsClockwise size={18} />
-                    Run performance audit
+                    <UiText text={"Run performance audit"} />
                   </button>
                 </section>
               )}
@@ -938,10 +960,10 @@ export function Workspace({
                 <div className="health-summary">
                   <div className="section-heading">
                     <h2>
-                      Site health
+                      <UiText text={"Site health"} />
                       <Info size={14} />
                     </h2>
-                    <span className="quiet-label">OVERALL SCORE</span>
+                    <span className="quiet-label"><UiText text={"OVERALL SCORE"} /></span>
                   </div>
                   <div className="health-main">
                     <ScoreRing score={audit.score} />
@@ -951,8 +973,8 @@ export function Workspace({
                         {audit.synthetic
                           ? "Good foundation"
                           : audit.score !== null
-                            ? "Measured audit"
-                            : "Collecting evidence"}
+                            ? <UiText text={"Measured audit"} />
+                            : <UiText text={"Collecting evidence"} />}
                       </span>
                       <h3>
                         {audit.synthetic ? (
@@ -965,9 +987,9 @@ export function Workspace({
                           <>
                             {audit.score !== null
                               ? audit.score >= 80
-                                ? "A strong foundation."
-                                : "A focused path forward."
-                              : "Your audit is taking shape."}
+                                ? <UiText text={"A strong foundation."} />
+                                : <UiText text={"A focused path forward."} />
+                              : <UiText text={"Your audit is taking shape."} />}
                           </>
                         )}
                       </h3>
@@ -975,8 +997,8 @@ export function Workspace({
                         {audit.synthetic
                           ? "Your site is doing a lot right. A few focused fixes can take it further."
                           : audit.score !== null
-                            ? "Based on the available checks in this report. Open any finding to see its evidence."
-                            : "Your actual scores will appear as checks finish."}
+                            ? <UiText text={"Based on the available checks in this report. Open any finding to see its evidence."} />
+                            : <UiText text={"Your actual scores will appear as checks finish."} />}
                       </p>
                       {audit.synthetic && (
                         <span className="positive">
@@ -989,15 +1011,15 @@ export function Workspace({
                   <div className="health-footer">
                     <span>
                       <i className="legend-dot green" />
-                      0–49 Needs attention
+                      <UiText text={"0–49 Needs attention"} />
                     </span>
                     <span>
                       <i className="legend-dot lime" />
-                      50–79 Good
+                      <UiText text={"50–79 Good"} />
                     </span>
                     <span>
                       <i className="legend-dot deep" />
-                      80–100 Great
+                      <UiText text={"80–100 Great"} />
                     </span>
                   </div>
                 </div>
@@ -1007,12 +1029,12 @@ export function Workspace({
                       <h2>
                         {audit.synthetic
                           ? "Moving in the right direction"
-                          : "Your audit history"}
+                          : <UiText text={"Your audit history"} />}
                       </h2>
                       <p>
                         {audit.synthetic
                           ? "Small improvements. Compounding results."
-                          : "Real measurements from this website and device."}
+                          : <UiText text={"Real measurements from this website and device."} />}
                       </p>
                     </div>
                     <select
@@ -1021,9 +1043,9 @@ export function Workspace({
                       value={period}
                       onChange={(e) => setPeriod(e.target.value)}
                     >
-                      <option>30 days</option>
-                      <option>14 days</option>
-                      <option>7 days</option>
+                      <option value={"30 days"}><UiText text={"30 days"} /></option>
+                      <option value={"14 days"}><UiText text={"14 days"} /></option>
+                      <option value={"7 days"}><UiText text={"7 days"} /></option>
                     </select>
                   </div>
                   <HealthChart
@@ -1034,14 +1056,14 @@ export function Workspace({
                   <div className="chart-legend">
                     <span>
                       <i className="legend-line" />
-                      Audit score
+                      <UiText text={"Audit score"} />
                     </span>
                     <span>
                       <i className="legend-line pale" />
-                      SEO score
+                      <UiText text={"SEO score"} />
                     </span>
                     <span className="synthetic-note">
-                      {audit.synthetic ? "Example trend" : "Observed snapshots"}
+                      {audit.synthetic ? "Example trend" : <UiText text={"Observed snapshots"} />}
                     </span>
                   </div>
                 </div>
@@ -1097,16 +1119,16 @@ export function Workspace({
               <section className="category-section">
                 <div className="section-heading">
                   <h2>
-                    The bigger picture
+                    <UiText text={"The bigger picture"} />
                     <span className="heading-note">
-                      Five perspectives. One healthier website.
+                      <UiText text={"Five perspectives. One healthier website."} />
                     </span>
                   </h2>
                   <button
                     className="text-link"
                     onClick={() => navigate("Issues")}
                   >
-                    Explore all findings
+                    <UiText text={"Explore all findings"} />
                     <ArrowRight size={14} />
                   </button>
                 </div>
@@ -1128,10 +1150,10 @@ export function Workspace({
                     >
                       <div className="category-label">
                         <span>
-                          {s.category === "GEO readiness" ? "GEO" : s.category}
+                          {s.category === "GEO readiness" ? "GEO" : t(s.category)}
                         </span>
                         {i === 1 ? (
-                          <span className="small-chip">AI readiness</span>
+                          <span className="small-chip"><UiText text={"AI readiness"} /></span>
                         ) : (
                           <ArrowUpRight size={15} />
                         )}
@@ -1172,18 +1194,18 @@ export function Workspace({
                   <div className="section-heading">
                     <div>
                       <h2>
-                        Start here
+                        <UiText text={"Start here"} />
                         <span className="count-chip">
                           {audit.findings.length}
                         </span>
                       </h2>
-                      <p>The fixes most likely to move the needle.</p>
+                      <p><UiText text={"The fixes most likely to move the needle."} /></p>
                     </div>
                     <button
                       className="text-link"
                       onClick={() => navigate("Issues")}
                     >
-                      View all issues
+                      <UiText text={"View all issues"} />
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -1222,8 +1244,8 @@ export function Workspace({
                         <CheckCircle size={28} />
                         <p>
                           {active
-                            ? "Findings will appear as pages are analyzed."
-                            : "No findings in this report."}
+                            ? <UiText text={"Findings will appear as pages are analyzed."} />
+                            : <UiText text={"No findings in this report."} />}
                         </p>
                       </div>
                     )}
@@ -1234,25 +1256,24 @@ export function Workspace({
                     <Code size={24} />
                     <span className="small-cross">+</span>
                   </div>
-                  <span className="small-chip">FROM INSIGHT TO ACTION</span>
+                  <span className="small-chip"><UiText text={"FROM INSIGHT TO ACTION"} /></span>
                   <h2>
-                    A report is a start.
-                    <br />A fix is progress.
+                    <UiText text={"A report is a start."} />
+                    <br /><UiText text={"A fix is progress."} />
                   </h2>
                   <p>
-                    Turn your audit findings into a focused repair prompt for
-                    your developer or coding agent.
+                    <UiText text={"Turn your audit findings into a focused repair prompt for your developer or coding agent."} />
                   </p>
                   <button
                     className="btn primary"
                     onClick={() => navigate("Fix prompt")}
                   >
-                    Build your fix prompt
+                    <UiText text={"Build your fix prompt"} />
                     <ArrowRight size={16} />
                   </button>
                   <div className="next-step-foot">
                     <CheckCircle size={13} />
-                    Specific to your site. Grounded in evidence.
+                    <UiText text={"Specific to your site. Grounded in evidence."} />
                   </div>
                 </section>
               </div>
@@ -1266,7 +1287,7 @@ export function Workspace({
             <section className="panel report-panel">
               <div className="section-heading">
                 <h2>
-                  All findings
+                  <UiText text={"All findings"} />
                   <span className="count-chip">{filtered.length}</span>
                 </h2>
                 <button
@@ -1277,7 +1298,7 @@ export function Workspace({
                   }}
                 >
                   <Code size={16} />
-                  Build prompt from results
+                  <UiText text={"Build prompt from results"} />
                 </button>
               </div>
               <div className="filters">
@@ -1287,18 +1308,18 @@ export function Workspace({
                   placeholder="Search findings or page URLs…"
                 />
                 <select
-                  aria-label="Filter severity"
+                  aria-label={t("Filter severity")}
                   value={severity}
                   onChange={(e) => setSeverity(e.target.value)}
                 >
                   {["All severities", "Critical", "High", "Medium", "Low"].map(
                     (s) => (
-                      <option key={s}>{s}</option>
+                      <option key={s} value={s}>{t(s)}</option>
                     ),
                   )}
                 </select>
                 <select
-                  aria-label="Filter category"
+                  aria-label={t("Filter category")}
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
@@ -1310,7 +1331,7 @@ export function Workspace({
                     "Accessibility",
                     "Technical",
                   ].map((s) => (
-                    <option key={s}>{s}</option>
+                    <option key={s} value={s}>{t(s)}</option>
                   ))}
                 </select>
               </div>
@@ -1318,9 +1339,9 @@ export function Workspace({
                 <section className="category-positive-panel" aria-label={`${category} positive signals`}>
                   <div className="section-heading">
                     <div>
-                      <span className="public-eyebrow">VERIFIED POSITIVES</span>
-                      <h3>{category === "GEO readiness" ? "GEO" : category} positive signals</h3>
-                      <p>Evidence that this category is working on the pages we checked.</p>
+                      <span className="public-eyebrow"><UiText text={"VERIFIED POSITIVES"} /></span>
+                      <h3>{category === "GEO readiness" ? "GEO" : category} <UiText text={"positive signals"} /></h3>
+                      <p><UiText text={"Evidence that this category is working on the pages we checked."} /></p>
                     </div>
                     <CheckCircle size={25} />
                   </div>
@@ -1370,7 +1391,7 @@ export function Workspace({
             <section className="panel report-panel">
               <div className="section-heading">
                 <h2>
-                  Crawled pages
+                  <UiText text={"Crawled pages"} />
                   <span className="count-chip">{audit.pages.length}</span>
                 </h2>
                 <span className="muted">
@@ -1390,11 +1411,11 @@ export function Workspace({
                 <table>
                   <thead>
                     <tr>
-                      <th>Page</th>
+                      <th><UiText text={"Page"} /></th>
                       <th>HTTP</th>
-                      <th>Index directive</th>
-                      <th>Words</th>
-                      <th>Findings</th>
+                      <th><UiText text={"Index directive"} /></th>
+                      <th><UiText text={"Words"} /></th>
+                      <th><UiText text={"Findings"} /></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1457,7 +1478,7 @@ export function Workspace({
             <section className="panel report-panel">
               <div className="section-heading">
                 <div>
-                  <h2>Keyword rankings</h2>
+                  <h2><UiText text={"Keyword rankings"} /></h2>
                   <p>
                     Google · {audit.config.country} · {audit.config.language} ·{" "}
                     {audit.config.device}
@@ -1487,11 +1508,11 @@ export function Workspace({
                     <table>
                       <thead>
                         <tr>
-                          <th>Keyword</th>
-                          <th>Position</th>
-                          <th>Change</th>
-                          <th>Monthly volume</th>
-                          <th>Ranking page</th>
+                          <th><UiText text={"Keyword"} /></th>
+                          <th><UiText text={"Position"} /></th>
+                          <th><UiText text={"Change"} /></th>
+                          <th><UiText text={"Monthly volume"} /></th>
+                          <th><UiText text={"Ranking page"} /></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1546,8 +1567,8 @@ export function Workspace({
             <section className="panel report-panel">
               <div className="section-heading">
                 <div>
-                  <h2>Your search neighborhood</h2>
-                  <p>Domains appearing for the same search intent.</p>
+                  <h2><UiText text={"Your search neighborhood"} /></h2>
+                  <p><UiText text={"Domains appearing for the same search intent."} /></p>
                 </div>
                 <span className="small-chip">
                   {audit.synthetic
@@ -1574,11 +1595,11 @@ export function Workspace({
                     <table>
                       <thead>
                         <tr>
-                          <th>Domain</th>
-                          <th>Shared keywords</th>
-                          <th>Average position</th>
-                          <th>SEO score</th>
-                          <th>Source</th>
+                          <th><UiText text={"Domain"} /></th>
+                          <th><UiText text={"Shared keywords"} /></th>
+                          <th><UiText text={"Average position"} /></th>
+                          <th><UiText text={"SEO score"} /></th>
+                          <th><UiText text={"Source"} /></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1650,10 +1671,9 @@ export function Workspace({
           {view === "Fix prompt" && (
             <div className="prompt-layout">
               <section className="panel prompt-options">
-                <h2>Choose your focus</h2>
+                <h2><UiText text={"Choose your focus"} /></h2>
                 <p>
-                  Select findings to include. Leave all unchecked to include the
-                  full report.
+                  <UiText text={"Select findings to include. Leave all unchecked to include the full report."} />
                 </p>
                 <div className="prompt-selection">
                   {audit.findings.map((f) => (
@@ -1684,7 +1704,7 @@ export function Workspace({
                 <div className="section-heading">
                   <h2>
                     <Code size={18} />
-                    Your repair brief
+                    <UiText text={"Your repair brief"} />
                   </h2>
                   <span className="small-chip">MARKDOWN</span>
                 </div>
@@ -1701,11 +1721,11 @@ export function Workspace({
                     }
                   >
                     <DownloadSimple size={16} />
-                    Download .md
+                    <UiText text={"Download .md"} />
                   </button>
                   <button className="btn primary" onClick={copyPrompt}>
                     <Copy size={16} />
-                    Copy prompt
+                    <UiText text={"Copy prompt"} />
                   </button>
                 </div>
               </section>
@@ -1714,10 +1734,10 @@ export function Workspace({
           {view === "Audit history" && (
             <section className="panel report-panel">
               <div className="section-heading">
-                <h2>Saved scans</h2>
+                <h2><UiText text={"Saved scans"} /></h2>
                 <button className="btn" onClick={refreshHistory}>
                   <ArrowsClockwise size={15} />
-                  Refresh
+                  <UiText text={"Refresh"} />
                 </button>
               </div>
               {loadingHistory ? (
@@ -1726,7 +1746,7 @@ export function Workspace({
                 <div className="empty-state">
                   <p>{historyError}</p>
                   <button className="btn" onClick={refreshHistory}>
-                    Retry
+                    <UiText text={"Retry"} />
                   </button>
                 </div>
               ) : history.length ? (
@@ -1750,7 +1770,7 @@ export function Workspace({
                         className={`status-pill ${["running", "queued"].includes(a.status) ? "pending" : ""}`}
                       >
                         <i />
-                        {a.status}
+                        {t(a.status)}
                       </span>
                       <ArrowRight size={17} />
                     </Link>
@@ -1783,12 +1803,12 @@ export function Workspace({
                   Free · Unlimited plan
                 </Link>
                 <Link className="btn" href="/docs/account-and-security">
-                  Account & security
+                  <UiText text={"Account & security"} />
                 </Link>
                 {user && (
                   <button className="btn" onClick={signOut}>
                     <SignOut size={17} />
-                    Sign out
+                    <UiText text={"Sign out"} />
                   </button>
                 )}
               </div>
@@ -1807,7 +1827,7 @@ export function Workspace({
                 : `Report ${audit.id.slice(0, 8)} · Saved locally`}
               <span className="footer-dot">·</span>
               <button onClick={() => setHelpOpen(true)}>
-                How scoring works
+                <UiText text={"How scoring works"} />
                 <ArrowUpRight size={12} />
               </button>
             </span>
@@ -1841,7 +1861,7 @@ export function Workspace({
                 contain observations from fetched HTML and never inherit example
                 measurements.
               </p>
-              <h3>What the scores mean</h3>
+              <h3><UiText text={"What the scores mean"} /></h3>
               <p>
                 Local category scores are rule-based heuristics: 100 minus
                 severity-weighted findings per fetched page (critical 25, high
@@ -1884,7 +1904,7 @@ function Metric({
   return (
     <div className="metric">
       <div>
-        <span>{label}</span>
+        <span><UiText text={label} /></span>
         <Icon size={17} />
       </div>
       <strong className={value.length > 6 ? "metric-text" : ""}>
@@ -1895,7 +1915,7 @@ function Metric({
           </span>
         )}
       </strong>
-      <p className={detail.startsWith("↑") ? "positive" : ""}>{detail}</p>
+      <p className={detail.startsWith("↑") ? "positive" : ""}><UiText text={detail} /></p>
     </div>
   );
 }
@@ -1923,17 +1943,18 @@ function Search({
   onChange: (v: string) => void;
   placeholder: string;
 }) {
+  const { t } = useUiLanguage();
   return (
     <label className="search-input">
       <MagnifyingGlass size={17} />
       <input
-        aria-label={placeholder}
+        aria-label={t(placeholder)}
         value={value}
-        placeholder={placeholder}
+        placeholder={t(placeholder)}
         onChange={(e) => onChange(e.target.value)}
       />
       {value && (
-        <button aria-label="Clear search" onClick={() => onChange("")}>
+        <button aria-label={t("Clear search")} onClick={() => onChange("")}>
           <X size={14} />
         </button>
       )}
@@ -1952,8 +1973,8 @@ function Empty({
   return (
     <div className="empty-state">
       <Icon size={34} />
-      <h3>{text}</h3>
-      {detail && <p>{detail}</p>}
+      <h3><UiText text={text} /></h3>
+      {detail && <p><UiText text={detail} /></p>}
     </div>
   );
 }
@@ -1969,7 +1990,7 @@ function Settings({
   const [name, setName] = useState(initialName);
   return (
     <section className="panel settings-panel">
-      <h2>Workspace preferences</h2>
+      <h2><UiText text={"Workspace preferences"} /></h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -1985,7 +2006,7 @@ function Settings({
         }}
       >
         <label>
-          Workspace name
+          <UiText text={"Workspace name"} />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -1994,7 +2015,7 @@ function Settings({
           />
         </label>
         <label>
-          Storage location
+          <UiText text={"Storage location"} />
           <input value="data/siteradar.sqlite" readOnly />
         </label>
         <div className="notice">
@@ -2005,7 +2026,7 @@ function Settings({
           </p>
         </div>
         <button className="btn primary">
-          Save preferences
+          <UiText text={"Save preferences"} />
           <Check size={16} />
         </button>
       </form>

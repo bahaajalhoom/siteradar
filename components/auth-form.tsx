@@ -1,4 +1,5 @@
 "use client";
+import { UiText, useUiLanguage } from '@/components/ui-language';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -7,6 +8,7 @@ import {safeReturnPath} from '@/lib/workspace-routes';
 import {apiFetch} from '@/lib/api';
 export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?:string }) {
   const router = useRouter();
+  const { t } = useUiLanguage();
   const [error, setError] = useState(""),
     [pending, setPending] = useState(false),
     [visible, setVisible] = useState(false);
@@ -40,19 +42,19 @@ export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?
     <form onSubmit={submit} className="auth-form">
       {signup && (
         <label>
-          Your name
+          <UiText text={"Your name"} />
           <input
             name="name"
             required
             minLength={2}
             maxLength={80}
             autoComplete="name"
-            placeholder="Your full name"
+            placeholder={t("Your full name")}
           />
         </label>
       )}
       <label>
-        Email address
+        <UiText text={"Email address"} />
         <input
           name="email"
           type="email"
@@ -63,7 +65,7 @@ export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?
         />
       </label>
       <label>
-        Password
+        <UiText text={"Password"} />
         <div className="password-input">
           <input
             name="password"
@@ -72,11 +74,11 @@ export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?
             minLength={10}
             maxLength={128}
             autoComplete={signup ? "new-password" : "current-password"}
-            placeholder={signup ? "At least 10 characters" : "Your password"}
+            placeholder={t(signup ? "At least 10 characters" : "Your password")}
           />
           <button
             type="button"
-            aria-label={visible ? "Hide password" : "Show password"}
+            aria-label={t(visible ? "Hide password" : "Show password")}
             onClick={() => setVisible(!visible)}
           >
             {visible ? <EyeSlash size={20} /> : <Eye size={20} />}
@@ -86,7 +88,7 @@ export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?
       {signup && (
         <>
           <p className="auth-hint">
-            Use at least 10 characters. Your password is securely hashed.
+            <UiText text={"Use at least 10 characters. Your password is securely hashed."} />
           </p>
         </>
       )}
@@ -99,19 +101,19 @@ export function AuthForm({ signup,returnTo='/app' }: { signup: boolean;returnTo?
         {pending ? (
           <>
             <SpinnerGap className="spin" size={19} />
-            Please wait…
+            <UiText text={"Please wait…"} />
           </>
         ) : (
           <>
-            {signup ? "Create free account" : "Log in"}
+            {signup ? <UiText text={"Create free account"} /> : <UiText text={"Log in"} />}
             <ArrowRight size={18} />
           </>
         )}
       </button>
       <p className="auth-switch">
-        {signup ? "Already have an account?" : "New to SiteRadar?"}{" "}
+        {signup ? <UiText text={"Already have an account?"} /> : <UiText text={"New to SiteRadar?"} />}{" "}
         <Link href={(signup ? "/sign-in" : "/sign-up")+`?next=${encodeURIComponent(safeReturnPath(returnTo))}`}>
-          {signup ? "Log in" : "Create a free account"}
+          {signup ? <UiText text={"Log in"} /> : <UiText text={"Create a free account"} />}
         </Link>
       </p>
     </form>

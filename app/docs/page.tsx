@@ -1,3 +1,4 @@
+import { UiText } from '@/components/ui-language';
 import { PublicHeader, PublicFooter } from "@/components/public-shell";
 import { DocsBrowser } from "@/components/docs-browser";
 import {publicMetadata, siteEntities} from '@/lib/seo';
@@ -37,10 +38,9 @@ export default function Docs() {
       <main className="public-container docs-home">
         <div className="public-page-title">
           <span className="public-eyebrow">THE SITERADAR FIELD GUIDE</span>
-          <h1>A little guidance.<br />A clearer way forward.</h1>
+          <h1><UiText text={"A little guidance."} /><br /><UiText text={"A clearer way forward."} /></h1>
           <p>
-            Set up your projects, understand the measurements, and turn findings
-            into fixes.
+            <UiText text={"Set up your projects, understand the measurements, and turn findings into fixes."} />
           </p>
         </div>
         <DocsBrowser />

@@ -1,4 +1,5 @@
 "use client";
+import { UiText, useUiLanguage } from '@/components/ui-language';
 import { useState, type FormEvent } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
@@ -23,6 +24,7 @@ export function NewAudit({
   onCreated: (a: Audit) => void;
   initialConfig?: AuditConfig;
 }) {
+  const { t } = useUiLanguage();
   const [pending, setPending] = useState(false),
     [error, setError] = useState("");
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -79,14 +81,14 @@ export function NewAudit({
             <GlobeHemisphereWest size={26} />
           </div>
           <Dialog.Title>
-            {initialConfig ? "Project scan settings" : "See what search sees."}
+            {initialConfig ? <UiText text={"Project scan settings"} /> : <UiText text={"See what search sees."} />}
           </Dialog.Title>
           <Dialog.Description>
-            Start with your website. We’ll turn the evidence into a clear plan.
+            <UiText text={"Start with your website. We’ll turn the evidence into a clear plan."} />
           </Dialog.Description>
           <form onSubmit={submit}>
             <label>
-              Website URL
+              <UiText text={"Website URL"} />
               <input
                 name="url"
                 required
@@ -99,65 +101,65 @@ export function NewAudit({
             </label>
             <div className="form-grid">
               <label>
-                Target country
+                <UiText text={"Target country"} />
                 <select
                   name="country"
                   defaultValue={initialConfig?.country ?? "United States"}
                 >
-                  <option>United States</option>
-                  <option>United Kingdom</option>
-                  <option>Israel</option>
-                  <option>Saudi Arabia</option>
-                  <option>United Arab Emirates</option>
-                  <option>Germany</option>
+                  <option value={"United States"}><UiText text={"United States"} /></option>
+                  <option value={"United Kingdom"}><UiText text={"United Kingdom"} /></option>
+                  <option value={"Israel"}><UiText text={"Israel"} /></option>
+                  <option value={"Saudi Arabia"}><UiText text={"Saudi Arabia"} /></option>
+                  <option value={"United Arab Emirates"}><UiText text={"United Arab Emirates"} /></option>
+                  <option value={"Germany"}><UiText text={"Germany"} /></option>
                 </select>
               </label>
               <label>
-                Content language
+                <UiText text={"Content language"} />
                 <select
                   name="language"
                   defaultValue={initialConfig?.language ?? "English"}
                 >
-                  <option>English</option>
-                  <option>Arabic</option>
-                  <option>Hebrew</option>
-                  <option>German</option>
+                  <option value={"English"}><UiText text={"English"} /></option>
+                  <option value={"Arabic"}><UiText text={"Arabic"} /></option>
+                  <option value={"Hebrew"}><UiText text={"Hebrew"} /></option>
+                  <option value={"German"}><UiText text={"German"} /></option>
                 </select>
               </label>
             </div>
             <div className="form-grid">
               <label>
-                Device context
+                <UiText text={"Device context"} />
                 <select
                   name="device"
                   defaultValue={initialConfig?.device ?? "Mobile"}
                 >
-                  <option>Mobile</option>
-                  <option>Desktop</option>
+                  <option value={"Mobile"}><UiText text={"Mobile"} /></option>
+                  <option value={"Desktop"}><UiText text={"Desktop"} /></option>
                 </select>
               </label>
               <label>
-                Crawl limit
+                <UiText text={"Crawl limit"} />
                 <select
                   name="maxPages"
                   defaultValue={initialConfig?.maxPages ?? 5}
                 >
-                  <option value="5">5 pages · quick check</option>
-                  <option value="10">10 pages</option>
-                  <option value="25">25 pages · full crawl</option>
-                  <option value="0">All discoverable pages</option>
+                  <option value="5"><UiText text={"5 pages · quick check"} /></option>
+                  <option value="10"><UiText text={"10 pages"} /></option>
+                  <option value="25"><UiText text={"25 pages · full crawl"} /></option>
+                  <option value="0"><UiText text={"All discoverable pages"} /></option>
                 </select>
               </label>
             </div>
             <label>
-              Keywords{" "}
+              <UiText text={"Keywords"} />{" "}
               <span className="optional">
-                optional · suggested from your pages when empty
+                <UiText text={"optional · suggested from your pages when empty"} />
               </span>
               <textarea
                 name="keywords"
                 rows={2}
-                placeholder="desk accessories, home office essentials"
+                placeholder={t("desk accessories, home office essentials")}
                 defaultValue={initialConfig?.keywords.join("\n") ?? ""}
               />
             </label>
@@ -178,7 +180,7 @@ export function NewAudit({
                 required
                 defaultChecked={initialConfig?.authorized ?? false}
               />
-              <span>I own this website or have permission to audit it.</span>
+              <span><UiText text={"I own this website or have permission to audit it."} /></span>
             </label>
             {error && (
               <p role="alert" className="form-error">
@@ -193,18 +195,18 @@ export function NewAudit({
               {pending ? (
                 <>
                   <SpinnerGap className="spin" size={18} />
-                  Starting scan…
+                  <UiText text={"Starting scan…"} />
                 </>
               ) : (
                 <>
-                  Start website audit
+                  <UiText text={"Start website audit"} />
                   <ArrowRight size={18} />
                 </>
               )}
             </button>
             <p className="form-foot">
               <ShieldCheck size={14} />
-              Public pages only. Respects robots.txt.
+              <UiText text={"Public pages only. Respects robots.txt."} />
             </p>
           </form>
         </Dialog.Content>

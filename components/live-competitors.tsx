@@ -1,3 +1,4 @@
+import { UiText } from '@/components/ui-language';
 import type { Audit } from "@/lib/types";
 import { ChartPieSlice, ArrowRight } from "@phosphor-icons/react";
 export function LiveCompetitors({
@@ -45,10 +46,10 @@ export function LiveCompetitors({
         <table>
           <thead>
             <tr>
-              <th>Domain</th>
+              <th><UiText text={"Domain"} /></th>
               <th>Query appearances</th>
-              <th>Average position</th>
-              <th>Source</th>
+              <th><UiText text={"Average position"} /></th>
+              <th><UiText text={"Source"} /></th>
             </tr>
           </thead>
           <tbody>

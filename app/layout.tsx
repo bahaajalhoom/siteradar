@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./product.css";
 import "./public-refresh.css";
+import "./locale.css";
+import { UiLanguageProvider } from '@/components/ui-language';
 import {publicMetadata} from '@/lib/seo';
 import {configuredSiteUrl,site} from '@/lib/site';
 export const metadata: Metadata = {
@@ -18,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <UiLanguageProvider>{children}</UiLanguageProvider>
       </body>
     </html>
   );

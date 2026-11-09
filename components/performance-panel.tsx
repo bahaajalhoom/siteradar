@@ -1,3 +1,4 @@
+import { UiText } from '@/components/ui-language';
 import type { Audit } from "@/lib/types";
 import { Info, ArrowSquareOut } from "@phosphor-icons/react";
 export function PerformancePanel({ audit }: { audit: Audit }) {
@@ -7,10 +8,10 @@ export function PerformancePanel({ audit }: { audit: Audit }) {
       <div className="measurement-note">
         <Info size={19} />
         <div>
-          <strong>Performance measurement needs another attempt.</strong>
+          <strong><UiText text={"Performance measurement needs another attempt."} /></strong>
           <p>{audit.measurementError}</p>
           <span>
-            Run again to retry. Collected page findings are preserved.
+            <UiText text={"Run again to retry. Collected page findings are preserved."} />
           </span>
         </div>
       </div>
@@ -53,7 +54,7 @@ export function PerformancePanel({ audit }: { audit: Audit }) {
     <section className="panel performance-panel">
       <div className="section-heading">
         <div>
-          <h2>Performance, measured.</h2>
+          <h2><UiText text={"Performance, measured."} /></h2>
           <p>
             Lighthouse · {p.device} · Homepage lab test ·{" "}
             {new Date(p.measuredAt).toLocaleString("en-GB", {
@@ -62,28 +63,27 @@ export function PerformancePanel({ audit }: { audit: Audit }) {
           </p>
         </div>
         <a className="text-link" href="/docs/measurements">
-          About these metrics
+          <UiText text={"About these metrics"} />
           <ArrowSquareOut size={15} />
         </a>
       </div>
       <div className="performance-metrics">
         {metrics.map((m) => (
           <div key={m.label}>
-            <span>{m.label}</span>
+            <span><UiText text={m.label}/></span>
             <strong className={m.good ? "positive" : "amber-text"}>
               {m.value}
             </strong>
-            <small>{m.name}</small>
+            <small><UiText text={m.name}/></small>
           </div>
         ))}
       </div>
       <p className="muted" style={{ marginTop: 20 }}>
-        Lab observations, not real-user data. TBT is not INP. Individual runs
-        vary with device profile and network conditions.
+        <UiText text={"Lab observations, not real-user data. TBT is not INP. Individual runs vary with device profile and network conditions."} />
       </p>
       {p.warnings.length > 0 && (
         <details style={{ marginTop: 15, fontSize: 13 }}>
-          <summary>Lighthouse measurement notes</summary>
+          <summary><UiText text={"Lighthouse measurement notes"} /></summary>
           {p.warnings.map((w, i) => (
             <p key={i}>{w}</p>
           ))}

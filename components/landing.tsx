@@ -1,3 +1,4 @@
+import { UiText } from '@/components/ui-language';
 import Link from "next/link";
 import {
   ArrowRight,
@@ -24,77 +25,75 @@ export async function Landing() {
       <main>
         <section className={styles.homeHero}>
           <div className={styles.homeIntro}>
-            <span className={styles.eyebrow}><span /> YOUR WEBSITE. IN FOCUS.</span>
+            <span className={styles.eyebrow}><span /> <UiText text={"YOUR WEBSITE. IN FOCUS."} /></span>
             <h1>
-              Your website,<br />
-              <em>seen clearly.</em>
+              <UiText text={"Your website,"} /><br />
+              <em><UiText text={"seen clearly."} /></em>
             </h1>
             <p>
-              Find what’s holding your website back. Bring SEO, performance,
-              and accessibility into one clear report—and know what to fix next.
+              <UiText text={"Find what’s holding your website back. Bring SEO, performance, and accessibility into one clear report—and know what to fix next."} />
             </p>
             <div className={`hero-actions ${styles.homeActions}`}>
               <Link href={user?'/app':'/sign-up'} className="btn primary">
-                {user?'Open your workspace':'Audit your website'}
+                {user?<UiText text={"Open your workspace"} />:<UiText text={"Audit your website"} />}
                 <ArrowRight size={19} />
               </Link>
               <Link prefetch={false} href="/demo" className="hero-secondary">
-                Explore a report
+                <UiText text={"Explore a report"} />
                 <ArrowUpRight size={17} />
               </Link>
             </div>
             <span className="hero-plan">
               <Check size={16} />
-              Free. Unlimited projects and audits. No credit card.
+              <UiText text={"Free. Unlimited projects and audits. No credit card."} />
             </span>
           </div>
           <div className={styles.productFrame}>
-            <div className={styles.windowBar}><span aria-hidden="true"><i /><i /><i /></span><span><ShieldCheck size={13} /> SiteRadar / Your workspace</span><span>PRODUCT PREVIEW</span></div>
+            <div className={styles.windowBar}><span aria-hidden="true"><i /><i /><i /></span><span><ShieldCheck size={13} /> SiteRadar / Your workspace</span><span><UiText text={"PRODUCT PREVIEW"} /></span></div>
             <div className={styles.productLayout}>
               <div className={styles.productNav} aria-hidden="true">
                 <strong><Scan size={22} />SiteRadar.</strong>
-                <small>YOUR WORKSPACE</small>
-                <span className={styles.activeNav}><Scan size={16} />Overview</span>
-                <span><Flag size={16} />Issues</span>
-                <span><Files size={16} />Pages</span>
-                <span><ChartLineUp size={16} />Performance</span>
-                <span><Code size={16} />Fix prompt</span>
+                <small><UiText text={"YOUR WORKSPACE"} /></small>
+                <span className={styles.activeNav}><Scan size={16} /><UiText text={"Overview"} /></span>
+                <span><Flag size={16} /><UiText text={"Issues"} /></span>
+                <span><Files size={16} /><UiText text={"Pages"} /></span>
+                <span><ChartLineUp size={16} /><UiText text={"Performance"} /></span>
+                <span><Code size={16} /><UiText text={"Fix prompt"} /></span>
                 <p>See clearly.<br />Improve deliberately.</p>
               </div>
               <div className={styles.productContent}>
-                <div className={styles.productTitle}><div><span>WEBSITE INTELLIGENCE</span><h2>Your next move, in focus.</h2></div><Link prefetch={false} href="/demo">Explore report <ArrowUpRight size={15} /></Link></div>
+                <div className={styles.productTitle}><div><span>WEBSITE INTELLIGENCE</span><h2><UiText text={"Your next move, in focus."} /></h2></div><Link prefetch={false} href="/demo"><UiText text={"Explore report"} /> <ArrowUpRight size={15} /></Link></div>
                 <div className={styles.productOverview}>
                   <div className={styles.radarVisual} aria-hidden="true"><span /><span /><span /><Scan size={30} /></div>
                   <div><span className={styles.reportTag}>FROM AUDIT TO ACTION</span><h3>Everything connects.<br />Nothing gets lost.</h3><p>Understand the issue. See the evidence.<br />Know where to start.</p></div>
-                  <div className={styles.checkList}>{['Technical SEO', 'Performance', 'Accessibility', 'Content readiness'].map(label => <span key={label}><Check size={15} />{label}</span>)}</div>
+                  <div className={styles.checkList}>{['Technical SEO', 'Performance', 'Accessibility', 'Content readiness'].map(label => <span key={label}><Check size={15} /><UiText text={label}/></span>)}</div>
                 </div>
                 <div className={styles.reportColumns}>
-                  <div><Flag size={20} /><h3>Find what matters</h3><p>Prioritized findings, with every affected page in view.</p><span>ISSUES & EVIDENCE <ArrowRight size={14} /></span></div>
-                  <div><Code size={20} /><h3>Make a clear plan</h3><p>Turn selected findings into a focused repair brief.</p><span>YOUR NEXT STEPS <ArrowRight size={14} /></span></div>
+                  <div><Flag size={20} /><h3><UiText text={"Find what matters"} /></h3><p>Prioritized findings, with every affected page in view.</p><span>ISSUES & EVIDENCE <ArrowRight size={14} /></span></div>
+                  <div><Code size={20} /><h3><UiText text={"Make a clear plan"} /></h3><p>Turn selected findings into a focused repair brief.</p><span>YOUR NEXT STEPS <ArrowRight size={14} /></span></div>
                 </div>
-                <div className={styles.productNote}><ShieldCheck size={14} /> Interface preview. Your audit will show your own measurements.</div>
+                <div className={styles.productNote}><ShieldCheck size={14} /> <UiText text={"Interface preview. Your audit will show your own measurements."} /></div>
               </div>
             </div>
           </div>
         </section>
         <div className={styles.coverage} aria-label="Audit capabilities">
-          <span>ONE WORKSPACE. EVERY ANGLE.</span>
-          {['Technical SEO', 'Lighthouse performance', 'Accessibility', 'Content readiness'].map(label => <span key={label}><Check size={16} aria-hidden="true" />{label}</span>)}
+          <span><UiText text={"ONE WORKSPACE. EVERY ANGLE."} /></span>
+          {['Technical SEO', 'Lighthouse performance', 'Accessibility', 'Content readiness'].map(label => <span key={label}><Check size={16} aria-hidden="true" /><UiText text={label}/></span>)}
         </div>
         <section id="how-it-works" className="how-section">
           <div className="public-container">
             <div className="section-intro">
               <div>
-              <span className={styles.eyebrow}>FROM INSIGHT TO ACTION</span>
+              <span className={styles.eyebrow}><UiText text={"FROM INSIGHT TO ACTION"} /></span>
               <h2>
-                Less interpreting reports.
+                <UiText text={"Less interpreting reports."} />
                 <br />
-                More improving your site.
+                <UiText text={"More improving your site."} />
               </h2>
               </div>
               <p>
-                From a URL to a practical repair plan, without losing the
-                details that matter.
+                <UiText text={"From a URL to a practical repair plan, without losing the details that matter."} />
               </p>
             </div>
             <div className="how-steps">
@@ -114,10 +113,10 @@ export async function Landing() {
               ].map((s, i) => (
                 <article key={s.title}>
                   <span>
-                    0{i + 1} / {["CONNECT", "MEASURE", "IMPROVE"][i]}
+                    0{i + 1} / <UiText text={["CONNECT", "MEASURE", "IMPROVE"][i]}/>
                   </span>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
+                  <h3><UiText text={s.title}/></h3>
+                  <p><UiText text={s.text}/></p>
                 </article>
               ))}
             </div>
@@ -126,15 +125,15 @@ export async function Landing() {
         <section className="capability-section public-container">
           <div className="section-intro">
             <div>
-            <span className={styles.eyebrow}>BUILT FOR THE BIGGER PICTURE</span>
+            <span className={styles.eyebrow}><UiText text={"BUILT FOR THE BIGGER PICTURE"} /></span>
             <h2>
-              Search health,
+              <UiText text={"Search health,"} />
               <br />
-              from more than one angle.
+              <UiText text={"from more than one angle."} />
             </h2>
             </div>
             <Link className="text-link" href="/docs/measurements">
-              Understand the measurements
+              <UiText text={"Understand the measurements"} />
               <ArrowRight size={17} />
             </Link>
           </div>
@@ -159,8 +158,8 @@ export async function Landing() {
               <article key={c.title}>
                 <c.icon size={26} />
                 <div>
-                  <h3>{c.title}</h3>
-                  <p>{c.text}</p>
+                  <h3><UiText text={c.title}/></h3>
+                  <p><UiText text={c.text}/></p>
                 </div>
                 <Check size={20} />
               </article>
@@ -169,68 +168,66 @@ export async function Landing() {
         </section>
         <section className={styles.repairSection} aria-labelledby="repair-title">
           <div className={styles.repairCopy}>
-            <span className={styles.eyebrow}>THE REPORT IS JUST THE START</span>
-            <h2 id="repair-title">Find the issue.<br /><em>Make the next move.</em></h2>
-            <p>A score tells you where you stand. The evidence tells you what to change. Take selected findings straight into a focused brief for your developer.</p>
+            <span className={styles.eyebrow}><UiText text={"THE REPORT IS JUST THE START"} /></span>
+            <h2 id="repair-title"><UiText text={"Find the issue."} /><br /><em><UiText text={"Make the next move."} /></em></h2>
+            <p><UiText text={"A score tells you where you stand. The evidence tells you what to change. Take selected findings straight into a focused brief for your developer."} /></p>
             <ul>
-              <li><Check size={18} />Affected pages and observed evidence</li>
-              <li><Check size={18} />Priorities and practical recommendations</li>
-              <li><Check size={18} />A repair prompt you can copy and use</li>
+              <li><Check size={18} /><UiText text={"Affected pages and observed evidence"} /></li>
+              <li><Check size={18} /><UiText text={"Priorities and practical recommendations"} /></li>
+              <li><Check size={18} /><UiText text={"A repair prompt you can copy and use"} /></li>
             </ul>
-            <Link href="/docs" className={styles.lightLink}>Explore the workflow <ArrowRight size={18} /></Link>
+            <Link href="/docs" className={styles.lightLink}><UiText text={"Explore the workflow"} /> <ArrowRight size={18} /></Link>
           </div>
           <div className={styles.repairBrief}>
-            <div className={styles.briefHeader}><FileText size={20} /><span>Website repair brief</span><span>WORKFLOW PREVIEW</span></div>
+            <div className={styles.briefHeader}><FileText size={20} /><span><UiText text={"Website repair brief"} /></span><span><UiText text={"WORKFLOW PREVIEW"} /></span></div>
             <div className={styles.briefBody}>
-              <span className={styles.briefLabel}>01 / OBSERVE</span>
-              <h3>Start with the evidence.</h3>
-              <p>Review the affected URL, the check that failed, and what was observed on the page.</p>
+              <span className={styles.briefLabel}><UiText text={"01 / OBSERVE"} /></span>
+              <h3><UiText text={"Start with the evidence."} /></h3>
+              <p><UiText text={"Review the affected URL, the check that failed, and what was observed on the page."} /></p>
               <div className={styles.briefDivider} />
-              <span className={styles.briefLabel}>02 / REPAIR</span>
-              <h3>Give every fix a clear scope.</h3>
-              <p>Select the findings that matter. Generate a brief with recommendations and verification steps.</p>
-              <div className={styles.briefResult}><ShieldCheck size={20} /><span>Re-run your audit to measure the change.</span></div>
+              <span className={styles.briefLabel}><UiText text={"02 / REPAIR"} /></span>
+              <h3><UiText text={"Give every fix a clear scope."} /></h3>
+              <p><UiText text={"Select the findings that matter. Generate a brief with recommendations and verification steps."} /></p>
+              <div className={styles.briefResult}><ShieldCheck size={20} /><span><UiText text={"Re-run your audit to measure the change."} /></span></div>
             </div>
           </div>
         </section>
         <section className="honesty-section public-container">
           <ShieldCheck size={35} />
           <div>
-            <h2>Useful numbers. Clear boundaries.</h2>
+            <h2><UiText text={"Useful numbers. Clear boundaries."} /></h2>
             <p>
-              Lab performance is labeled as lab data. Content readiness isn’t a
-              claim of AI visibility. Open saved keywords on Google, or use
-              automatic search snapshots with country, language, device, and measurement time.
+              <UiText text={"Lab performance is labeled as lab data. Content readiness isn’t a claim of AI visibility. Open saved keywords on Google, or use automatic search snapshots with country, language, device, and measurement time."} />
             </p>
             <Link href="/docs/search-rankings">
-              How keyword tracking works
+              <UiText text={"How keyword tracking works"} />
               <ArrowRight size={16} />
             </Link>
           </div>
         </section>
         <section className={styles.faq} aria-labelledby="faq-title">
-          <div><span className={styles.eyebrow}>A LITTLE MORE CLARITY</span><h2 id="faq-title">Good questions.<br />Clear answers.</h2><p>Get to know your next website audit.</p></div>
+          <div><span className={styles.eyebrow}><UiText text={"A LITTLE MORE CLARITY"} /></span><h2 id="faq-title"><UiText text={"Good questions."} /><br /><UiText text={"Clear answers."} /></h2><p><UiText text={"Get to know your next website audit."} /></p></div>
           <div className={styles.questions}>
             {[
               ['What does SiteRadar check?', 'SiteRadar checks technical SEO, page content, performance and accessibility. Each report connects findings to affected pages and includes practical recommendations.'],
               ['Is SiteRadar free?', 'Yes. The Free plan includes unlimited projects and audits. Crawl time and resource safeguards apply to keep the service available.'],
               ['Do I need to install anything on my website?', 'No. Add your public HTTPS website and choose your audit settings. You must own the website or have permission to audit it.'],
               ['Does a good score guarantee better search rankings?', 'No. A score describes the website checks in your audit. Search position is a separate observation for a keyword, market and device.'],
-            ].map(([question, answer]) => <details key={question}><summary>{question}<CaretDown size={18} aria-hidden="true" /></summary><p>{answer}</p></details>)}
+            ].map(([question, answer]) => <details key={question}><summary><UiText text={question}/><CaretDown size={18} aria-hidden="true" /></summary><p><UiText text={answer}/></p></details>)}
           </div>
         </section>
         <section className="public-cta public-container">
           <div>
-            <span className={styles.eyebrow}>YOUR NEXT MOVE</span>
+            <span className={styles.eyebrow}><UiText text={"YOUR NEXT MOVE"} /></span>
             <h2>
-              Your next improvement
+              <UiText text={"Your next improvement"} />
               <br />
-              starts with a clearer view.
+              <UiText text={"starts with a clearer view."} />
             </h2>
-            <p>Free includes unlimited projects, audits, and saved reports.</p>
+            <p><UiText text={"Free includes unlimited projects, audits, and saved reports."} /></p>
           </div>
             <Link href={user?'/app':'/sign-up'} className="btn primary">
-              {user?'Continue to your workspace':'Create your free account'}
+              {user?<UiText text={"Continue to your workspace"} />:<UiText text={"Create your free account"} />}
             <ArrowRight size={19} />
           </Link>
         </section>

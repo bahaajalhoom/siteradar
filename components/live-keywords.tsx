@@ -1,3 +1,4 @@
+import { UiText } from '@/components/ui-language';
 import type { Audit } from "@/lib/types";
 import { SemanticReviewPanel } from './semantic-review';
 import { MagnifyingGlass, ArrowRight, ArrowSquareOut, GearSix } from "@phosphor-icons/react";
@@ -17,7 +18,7 @@ export function LiveKeywords({
       <SemanticReviewPanel audit={audit}/>
       <div className="section-heading">
         <div>
-          <h2>Google search visibility</h2>
+          <h2><UiText text={"Google search visibility"} /></h2>
           <p>
             Google · {audit.config.country} · {audit.config.language} ·{" "}
             {audit.config.device}
@@ -25,10 +26,10 @@ export function LiveKeywords({
         </div>
         <button className="btn" onClick={onEdit}>
           <GearSix size={17} />
-          Edit keywords
+          <UiText text={"Edit keywords"} />
         </button>
       </div>
-      <p className="muted">Your SEO audit score measures checks on your website. Search visibility measures where a site appeared for a specific keyword, market, and device.</p>
+      <p className="muted"><UiText text={"Your SEO audit score measures checks on your website. Search visibility measures where a site appeared for a specific keyword, market, and device."} /></p>
       {checked.length > 0 && (
         <div className="measurement-note">
           <MagnifyingGlass size={21} />
@@ -53,16 +54,16 @@ export function LiveKeywords({
           <div>
             <strong>
               {audit.rankingStatus === "failed"
-                ? "The search provider needs attention."
-                : "Check any keyword on Google."}
+                ? <UiText text={"The search provider needs attention."} />
+                : <UiText text={"Check any keyword on Google."} />}
             </strong>
             <p>
               {audit.rankingStatus === "failed"
-                ? "Check your provider key and credits, then run the project again."
-                : "Use the Google links below to see the results in your browser. Automatic positions appear when SiteRadar’s search service or your optional integration is available."}
+                ? <UiText text={"Check your provider key and credits, then run the project again."} />
+                : <UiText text={"Use the Google links below to see the results in your browser. Automatic positions appear when SiteRadar’s search service or your optional integration is available."} />}
             </p>
             <button className="text-link" onClick={onConnect}>
-              Optional search integration
+              <UiText text={"Optional search integration"} />
               <ArrowRight size={16} />
             </button>
           </div>
@@ -72,10 +73,10 @@ export function LiveKeywords({
         <table>
           <thead>
             <tr>
-              <th>Keyword</th>
-              <th>Observed position</th>
-              <th>Observed depth</th>
-              <th>Result / status</th>
+              <th><UiText text={"Keyword"} /></th>
+              <th><UiText text={"Observed position"} /></th>
+              <th><UiText text={"Observed depth"} /></th>
+              <th><UiText text={"Result / status"} /></th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +87,7 @@ export function LiveKeywords({
                   <td>
                     <strong>{phrase}</strong>
                     <a className="table-sub text-link" href={`https://www.google.com/search?${new URLSearchParams({q:phrase})}`} target="_blank" rel="noreferrer">
-                      Search on Google <ArrowSquareOut size={14} />
+                      <UiText text={"Search on Google"} /> <ArrowSquareOut size={14} />
                     </a>
                   </td>
                   <td>
@@ -106,23 +107,23 @@ export function LiveKeywords({
                         </summary>
                         <div className="serp-context">
                           <p>
-                            Checked:{" "}
+                            <UiText text={"Checked:"} />{" "}
                             {new Date(r.checkedAt).toLocaleString("en-GB", {
                               timeZone: "Asia/Jerusalem",
                             })}{" "}
                             · SerpApi
                           </p>
                           <p>
-                            Requested market: {audit.config.country} ·{" "}
+                            <UiText text={"Requested market:"} /> {audit.config.country} ·{" "}
                             {audit.config.language} · {audit.config.device}
                           </p>
                           <p>
-                            Provider location:{" "}
+                            <UiText text={"Provider location:"} />{" "}
                             {r.context?.locationUsed ??
                               "Not recorded in this older snapshot"}
                           </p>
                           {r.context?.queryDisplayed && (
-                            <p>Displayed query: {r.context.queryDisplayed}</p>
+                            <p><UiText text={"Displayed query:"} /> {r.context.queryDisplayed}</p>
                           )}
                           {r.context?.spellingSuggestion && (
                             <p>
@@ -189,10 +190,10 @@ export function LiveKeywords({
       {!audit.config.keywords.length && (
         <div className="empty-state">
           <MagnifyingGlass size={30} />
-          <h3>Add the phrases your customers search for.</h3>
-          <p>Scan settings remembers them for every future run.</p>
+          <h3><UiText text={"Add the phrases your customers search for."} /></h3>
+          <p><UiText text={"Scan settings remembers them for every future run."} /></p>
           <button className="btn" onClick={onEdit}>
-            Add keywords
+            <UiText text={"Add keywords"} />
           </button>
         </div>
       )}

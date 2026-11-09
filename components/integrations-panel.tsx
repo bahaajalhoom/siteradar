@@ -1,4 +1,5 @@
 "use client";
+import { UiText } from '@/components/ui-language';
 import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
@@ -66,10 +67,9 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
     <section className="panel report-panel">
       <div className="section-heading">
         <div>
-          <h2>Your measurement tools</h2>
+          <h2><UiText text={"Your measurement tools"} /></h2>
           <p>
-            Website measurements work without external keys. Search rankings are
-            optional.
+            <UiText text={"Website measurements work without external keys. Search rankings are optional."} />
           </p>
         </div>
         <ShieldCheck size={23} />
@@ -102,7 +102,7 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
             </div>
             <span className="status-pill">
               <i />
-              Included
+              <UiText text={"Included"} />
             </span>
           </div>
         ))}
@@ -120,10 +120,10 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
           <span className={`status-pill ${connected ? "" : "unavailable"}`}>
             <i />
             {!loaded
-              ? "Checking…"
+              ? <UiText text={"Checking…"} />
               : connected
-                ? "Key saved"
-                : "Optional · not connected"}
+                ? <UiText text={"Key saved"} />
+                : <UiText text={"Optional · not connected"} />}
           </span>
         </div>
       </div>
@@ -131,15 +131,15 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
         <p className="form-error">
           {error}
           <button className="text-link" onClick={load}>
-            Retry
+            <UiText text={"Retry"} />
           </button>
         </p>
       )}
       <form className="provider-form" onSubmit={save}>
         <h3>
           {connected
-            ? "Manage your search connection"
-            : "Connect search rankings when you’re ready"}
+            ? <UiText text={"Manage your search connection"} />
+            : <UiText text={"Connect search rankings when you’re ready"} />}
         </h3>
         <p>
           No account yet? Your audits still work. Create a{" "}
@@ -154,7 +154,7 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
           the unlimited Free plan.
         </p>
         <label>
-          SerpApi API key
+          <UiText text={"SerpApi API key"} />
           <input
             type="password"
             autoComplete="off"
@@ -182,7 +182,7 @@ export function IntegrationsPanel({ demo = false }: { demo?: boolean }) {
             onClick={() => save(undefined, true)}
             disabled={pending}
           >
-            Disconnect
+            <UiText text={"Disconnect"} />
           </button>
         )}
         <p className="auth-hint">

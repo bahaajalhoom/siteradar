@@ -1,3 +1,4 @@
+import { LanguageSwitch, UiText } from '@/components/ui-language';
 import Link from "next/link";
 import {
   Scan,
@@ -9,55 +10,56 @@ import { AuthForm } from "./auth-form";
 export function AuthPage({ signup,returnTo }: { signup: boolean;returnTo?:string }) {
   return (
     <main className="auth-page">
+      <LanguageSwitch />
       <section className="auth-story">
         <Link href="/" className="public-brand">
           <Scan size={31} />
           SiteRadar.
         </Link>
         <div>
-          <span className="public-eyebrow">YOUR WEBSITE. IN FOCUS.</span>
+          <span className="public-eyebrow"><UiText text={"YOUR WEBSITE. IN FOCUS."} /></span>
           <h1>
-            Every website has
-            <br />a next step.
+            <UiText text={"Every website has"} />
+            <br /><UiText text={"a next step."} />
           </h1>
-          <p>Find yours with evidence you can act on.</p>
+          <p><UiText text={"Find yours with evidence you can act on."} /></p>
           <ul>
             <li>
               <Check size={19} />
-              Save your projects once.
+              <UiText text={"Save your projects once."} />
             </li>
             <li>
               <Check size={19} />
-              Measure what actually matters.
+              <UiText text={"Measure what actually matters."} />
             </li>
             <li>
               <Check size={19} />
-              Turn findings into a repair plan.
+              <UiText text={"Turn findings into a repair plan."} />
             </li>
           </ul>
         </div>
         <span>
           <ShieldCheck size={18} />
-          Free includes unlimited projects and audits.
+          <UiText text={"Free includes unlimited projects and audits."} />
         </span>
       </section>
       <section className="auth-panel">
         <Link href="/" className="auth-back">
           <ArrowLeft size={17} />
-          Back to SiteRadar
+          <UiText text={"Back to SiteRadar"} />
         </Link>
         <div>
-          <span className="public-eyebrow">{signup ? 'LET’S GET STARTED' : 'YOUR WORKSPACE AWAITS'}</span>
-          <h2>{signup ? "A clearer picture starts here." : "Welcome back."}</h2>
+          <span className="public-eyebrow">{signup ? <UiText text={"LET’S GET STARTED"} /> : <UiText text={"YOUR WORKSPACE AWAITS"} />}</span>
+          <h2>{signup ? <UiText text={"A clearer picture starts here."} /> : <UiText text={"Welcome back."} />}</h2>
           <p>
             {signup
-              ? "Create your free workspace. No credit card."
-              : "Your projects, reports, and next steps are waiting."}
+              ? <UiText text={"Create your free workspace. No credit card."} />
+              : <UiText text={"Your projects, reports, and next steps are waiting."} />}
           </p>
           <AuthForm signup={signup} returnTo={returnTo}/>
         </div>
         <p className="auth-local-note">
-          Built for clearer decisions. Created by AhmadJalhoom.
+          <UiText text={"Built for clearer decisions. Created by AhmadJalhoom."} />
         </p>
       </section>
     </main>
