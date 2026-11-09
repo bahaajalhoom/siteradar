@@ -1794,7 +1794,7 @@ td strong {
 .notification-popover {
   position: absolute;
   top: 60px;
-  right: 37px;
+  inset-inline-end: 37px;
   width: 310px;
   padding: 20px;
   background: #fff;
@@ -2944,7 +2944,7 @@ form input[readonly] {
     top: 62px;
   }
   .notification-popover {
-    right: 15px;
+    inset-inline-end: 15px;
     width: min(310px, calc(100vw - 30px));
   }
   .dialog-content {
