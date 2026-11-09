@@ -75,8 +75,8 @@ export function LiveCompetitors({
       <ChartPieSlice size={35} />
       <h3>Your comparison starts with shared search results.</h3>
       <p>
-        Connect SerpApi and run again. Competitors will be discovered from the
-        same saved keywords and market.
+        Competitor comparisons use automatic search snapshots for the same keywords and market.
+        Open Keywords to explore the results directly on Google.
       </p>
       <button className="btn" onClick={onConnect}>
         Set up search results

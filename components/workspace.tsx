@@ -1081,14 +1081,14 @@ export function Workspace({
                 <Metric
                   label="Average position"
                   value={
-                    audit.synthetic ? "16.6" : (averageRank ?? "Not connected")
+                    audit.synthetic ? "16.6" : (averageRank ?? "—")
                   }
                   detail={
                     audit.synthetic
                       ? "↑ 4.2 positions · example"
                       : audit.rankingStatus === "ready"
-                        ? "Matched keywords only"
-                        : "Connect search in Integrations"
+                        ? (averageRank === null ? "No matches in checked results" : "Matched keywords only")
+                        : "Check saved keywords on Google"
                   }
                   icon={TrendUp}
                 />

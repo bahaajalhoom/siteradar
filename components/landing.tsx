@@ -199,9 +199,8 @@ export async function Landing() {
             <h2>Useful numbers. Clear boundaries.</h2>
             <p>
               Lab performance is labeled as lab data. Content readiness isn’t a
-              claim of AI visibility. Search rankings use a connected SerpApi
-              account, with country, language, device, and measurement time
-              attached.
+              claim of AI visibility. Open saved keywords on Google, or use
+              automatic search snapshots with country, language, device, and measurement time.
             </p>
             <Link href="/docs/search-rankings">
               How keyword tracking works
@@ -216,7 +215,7 @@ export async function Landing() {
               ['What does SiteRadar check?', 'SiteRadar checks technical SEO, page content, performance and accessibility. Each report connects findings to affected pages and includes practical recommendations.'],
               ['Is SiteRadar free?', 'Yes. The Free plan includes unlimited projects and audits. Crawl time and resource safeguards apply to keep the service available.'],
               ['Do I need to install anything on my website?', 'No. Add your public HTTPS website and choose your audit settings. You must own the website or have permission to audit it.'],
-              ['Does a good score guarantee better search rankings?', 'No. An audit helps identify website improvements. Search rankings depend on many factors. Keyword position tracking requires a connected SerpApi account.'],
+              ['Does a good score guarantee better search rankings?', 'No. A score describes the website checks in your audit. Search position is a separate observation for a keyword, market and device.'],
             ].map(([question, answer]) => <details key={question}><summary>{question}<CaretDown size={18} aria-hidden="true" /></summary><p>{answer}</p></details>)}
           </div>
         </section>

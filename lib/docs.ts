@@ -82,8 +82,8 @@ export const docs = [
         body: "Open Scan settings to edit keywords, then run the audit. Without manually entered keywords, SiteRadar extracts initial phrases from the actual page title and headings. Review these suggestions; they are not keyword-volume research.",
       },
       {
-        title: "Connect SerpApi",
-        body: "Create an account at serpapi.com, obtain an API key, then open Integrations in your workspace. Paste the key into the password field and save it. The key is encrypted at rest and is never returned to the browser. Start another audit to collect results.",
+        title: "Check your Google visibility",
+        body: "Open Keywords and choose Search on Google to check a phrase in your browser. SiteRadar measures positions automatically when a shared search service is configured, or you can connect your own provider account under Integrations.",
       },
       {
         title: "What is recorded",
@@ -91,11 +91,11 @@ export const docs = [
       },
       {
         title: "When no provider is connected",
-        body: "Saved keywords still appear. Positions remain unmeasured, with a direct path to connect SerpApi. SiteRadar never fills a rank with invented data. Website, performance, and accessibility checks continue normally.",
+        body: "Saved keywords stay visible with direct Google search links. Browser results depend on your search settings and location. A score of 100 in the SEO audit is possible even when the site is absent from the first 30 results for a keyword.",
       },
       {
         title: "Provider costs and limits",
-        body: "SerpApi is optional and billed by that provider. A scan with a connected key makes one query per saved keyword. Check your provider credits before starting large keyword lists. API failures are reported as failures rather than “not ranked”.",
+        body: "Automatic checks can request up to three pages per keyword and record up to 30 organic positions. Shared service checks cover up to four saved keywords per audit. Your optional SerpApi integration uses your provider credits. Partial checks show their actual depth.",
       },
       {
         title: "Search competitors",
@@ -172,7 +172,7 @@ export const docs = [
       },
       {
         title: "No keyword position appears",
-        body: "Connect SerpApi, save at least one keyword, and run again. Check the provider’s credits and any per-query error in the Keywords view. A website being indexable does not guarantee it appears in a returned result set.",
+        body: "Open a saved keyword on Google or run another audit when automatic search is available. The Keywords view shows each query’s observed depth and provider errors. Search position depends on the keyword and context.",
       },
     ],
   },

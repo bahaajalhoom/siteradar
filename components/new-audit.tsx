@@ -165,8 +165,9 @@ export function NewAudit({
               <Info size={18} />
               <p>
                 Includes rendered-page checks, Lighthouse performance, and
-                automated accessibility. A connected SerpApi account enables one
-                search query per keyword. Free has no plan quotas; crawl time
+                automated accessibility. Check saved keywords directly on Google.
+                Automatic position checks are available when a search service is configured.
+                Crawl time
                 and resource safeguards still apply.
               </p>
             </div>

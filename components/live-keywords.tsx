@@ -1,6 +1,6 @@
 import type { Audit } from "@/lib/types";
 import { SemanticReviewPanel } from './semantic-review';
-import { MagnifyingGlass, ArrowRight, GearSix } from "@phosphor-icons/react";
+import { MagnifyingGlass, ArrowRight, ArrowSquareOut, GearSix } from "@phosphor-icons/react";
 export function LiveKeywords({
   audit,
   onConnect,
@@ -17,7 +17,7 @@ export function LiveKeywords({
       <SemanticReviewPanel audit={audit}/>
       <div className="section-heading">
         <div>
-          <h2>Your saved keywords</h2>
+          <h2>Google search visibility</h2>
           <p>
             Google · {audit.config.country} · {audit.config.language} ·{" "}
             {audit.config.device}
@@ -28,6 +28,7 @@ export function LiveKeywords({
           Edit keywords
         </button>
       </div>
+      <p className="muted">Your SEO audit score measures checks on your website. Search visibility measures where a site appeared for a specific keyword, market, and device.</p>
       {checked.length > 0 && (
         <div className="measurement-note">
           <MagnifyingGlass size={21} />
@@ -53,15 +54,15 @@ export function LiveKeywords({
             <strong>
               {audit.rankingStatus === "failed"
                 ? "The search provider needs attention."
-                : "Keywords are saved. Search positions need a connection."}
+                : "Check any keyword on Google."}
             </strong>
             <p>
               {audit.rankingStatus === "failed"
                 ? "Check your provider key and credits, then run the project again."
-                : "Connect SerpApi when you have an account. Website and performance audits keep working without it."}
+                : "Use the Google links below to see the results in your browser. Automatic positions appear when SiteRadar’s search service or your optional integration is available."}
             </p>
             <button className="text-link" onClick={onConnect}>
-              Set up search rankings
+              Optional search integration
               <ArrowRight size={16} />
             </button>
           </div>
@@ -72,7 +73,7 @@ export function LiveKeywords({
           <thead>
             <tr>
               <th>Keyword</th>
-              <th>Position · SerpApi</th>
+              <th>Observed position</th>
               <th>Observed depth</th>
               <th>Result / status</th>
             </tr>
@@ -84,6 +85,9 @@ export function LiveKeywords({
                 <tr key={phrase}>
                   <td>
                     <strong>{phrase}</strong>
+                    <a className="table-sub text-link" href={`https://www.google.com/search?${new URLSearchParams({q:phrase})}`} target="_blank" rel="noreferrer">
+                      Search on Google <ArrowSquareOut size={14} />
+                    </a>
                   </td>
                   <td>
                     {r?.position ? (
@@ -172,8 +176,9 @@ export function LiveKeywords({
                     ) : r && !r.error ? (
                       `Not in ${r.searched} returned results`
                     ) : (
-                      "Waiting for a connected provider"
+                      "Open Google to check manually"
                     )}
+                    {r?.coverageNote && <span className="table-sub">{r.coverageNote}</span>}
                   </td>
                 </tr>
               );
