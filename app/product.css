@@ -2,14 +2,17 @@
 body {
   font-size: 15px;
 }
+.app-shell {
+  --sidebar-width: 248px;
+}
 .sidebar {
-  width: 248px;
+  width: var(--sidebar-width);
   overflow: hidden;
   padding: 24px 16px 0;
   gap: 0;
 }
 .main-shell {
-  margin-left: 248px;
+  margin-inline-start: var(--sidebar-width);
 }
 .sidebar .brand {
   flex-shrink: 0;
@@ -40,6 +43,10 @@ body {
 .sidebar .sidebar-project {
   padding-bottom: 12px;
   font-size: 13px;
+  text-align: start;
+}
+.sidebar :is(.nav-item, .sidebar-project, .sidebar-utility) svg {
+  flex-shrink: 0;
 }
 .sidebar > nav {
   min-height: 0;
@@ -435,7 +442,7 @@ form textarea {
   font-size: 9px;
 }
 .project-popover {
-  left: 265px;
+  inset-inline-start: calc(var(--sidebar-width) + 17px);
   width: 340px;
 }
 .project-popover > button {
@@ -1647,11 +1654,8 @@ form textarea {
   .heading-actions {
     justify-content: flex-start;
   }
-  .sidebar {
-    width: 238px;
-  }
-  .main-shell {
-    margin-left: 238px;
+  .app-shell {
+    --sidebar-width: 238px;
   }
   .landing-hero {
     gap: 35px;
@@ -1700,13 +1704,12 @@ form textarea {
   .main-content {
     padding: 28px 25px 0;
   }
+  .app-shell {
+    --sidebar-width: 222px;
+  }
   .sidebar {
-    width: 222px;
     padding-left: 10px;
     padding-right: 10px;
-  }
-  .main-shell {
-    margin-left: 222px;
   }
   .sidebar .nav-item {
     font-size: 13px;
@@ -1841,11 +1844,11 @@ form textarea {
 }
 @media (max-width: 700px) {
   .sidebar {
-    width: 248px;
+    width: min(248px, 100vw);
     overflow: hidden;
   }
   .main-shell {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   .main-content {
     padding: 25px 20px 0;
@@ -2000,8 +2003,7 @@ form textarea {
     border: 0;
   }
   .project-popover {
-    left: 16px;
-    right: 16px;
+    inset-inline: 16px;
     width: auto;
   }
   .project-summary-list {
@@ -2488,6 +2490,7 @@ form textarea {
 }
 .sidebar-utility {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -2510,6 +2513,15 @@ form textarea {
 }
 .sidebar :focus-visible {
   outline-color: #d6ecaa;
+}
+@media (max-height: 500px) {
+  .sidebar {
+    overflow-y: auto;
+  }
+  .sidebar > nav {
+    flex: 1 0 auto;
+    overflow: visible;
+  }
 }
 @media (max-height: 750px) {
   .sidebar-workspace-name {

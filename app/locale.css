@@ -11,22 +11,18 @@
 .language-switch:hover { background: #eaf1e5; }
 .language-switch:focus-visible { outline: 2px solid #4c795c; outline-offset: 2px; }
 .auth-page > .language-switch { position: absolute; inset-block-start: 16px; inset-inline-end: 16px; z-index: 2; }
-html[dir="rtl"] .sidebar { left: auto; right: 0; }
-html[dir="rtl"] .main-shell { margin-left: 0; margin-right: 248px; }
-html[dir="rtl"] .project-popover { left: auto; right: 265px; }
-html[dir="rtl"] .nav-count, html[dir="rtl"] .profile .icon-btn { margin-inline-start: auto; margin-inline-end: 0; }
+html[dir="rtl"] .sidebar-project-name { text-align: right; }
+html[dir="rtl"] .sidebar :is(.sidebar-utility a:last-child, .profile .icon-btn) svg {
+  transform: scaleX(-1);
+}
 html[dir="rtl"] .breadcrumbs > svg { transform: scaleX(-1); }
 html[dir="rtl"] .modal-close { right: auto; left: 15px; }
 html[dir="rtl"] .password-input input { padding-right: 14px !important; padding-left: 48px !important; }
 html[dir="rtl"] .password-input button { right: auto; left: 12px; }
 html[dir="rtl"] .event-log time { direction: ltr; unicode-bidi: isolate; }
 html[dir="rtl"] :is(pre, code, input[type="email"], input[type="url"], input[name="url"]) { direction: ltr; }
-@media (max-width: 1200px) { html[dir="rtl"] .main-shell { margin-right: 238px; } }
-@media (max-width: 900px) { html[dir="rtl"] .main-shell { margin-right: 222px; } }
 @media (max-width: 700px) {
-  html[dir="rtl"] .main-shell { margin-right: 0; }
   html[dir="rtl"] .sidebar { transform: translateX(100%); }
   html[dir="rtl"] .sidebar.is-open { transform: translateX(0); }
-  html[dir="rtl"] .project-popover { left: 20px; right: 20px; }
   .language-switch { padding-inline: 7px; }
 }

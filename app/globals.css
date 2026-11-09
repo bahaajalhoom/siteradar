@@ -129,9 +129,9 @@ button:disabled {
 }
 .sidebar {
   overflow-y: auto;
-  width: 226px;
   position: fixed;
-  inset: 0 auto 0 0;
+  inset-block: 0;
+  inset-inline-start: 0;
   background: var(--forest);
   color: #d5e1d8;
   padding: 31px 16px 0;
@@ -215,7 +215,7 @@ button:disabled {
   display: flex;
   align-items: center;
   gap: 11px;
-  text-align: left;
+  text-align: start;
   border: 0;
   background: transparent;
   color: #bed0c2;
@@ -240,7 +240,7 @@ button:disabled {
   flex: 1;
 }
 .nav-count {
-  margin-left: auto;
+  margin-inline-start: auto;
   font-size: 10px;
   color: #a8beae;
 }
@@ -254,7 +254,7 @@ button:disabled {
   font-weight: 600;
 }
 .new-label {
-  margin-left: auto;
+  margin-inline-start: auto;
   font-size: 8px;
   letter-spacing: 0.5px;
   color: #d8edb7;
@@ -283,9 +283,10 @@ button:disabled {
   font-size: 11px;
   font-weight: 550;
 }
-.sidebar-project > span:nth-child(2) {
+.sidebar-project-name {
   flex: 1;
-  text-align: left;
+  min-width: 0;
+  text-align: start;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -351,7 +352,7 @@ button:disabled {
   font-size: 11px;
 }
 .sidebar-bottom > .nav-item > svg:last-child:not(:first-child) {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 .profile {
   margin-top: 16px;
@@ -390,7 +391,6 @@ button:disabled {
   color: #9cb59f;
 }
 .main-shell {
-  margin-left: 226px;
   min-width: 0;
   flex: 1;
 }
@@ -1813,11 +1813,10 @@ td strong {
   margin: 10px 0 15px;
 }
 .project-popover {
-  position: absolute;
-  left: 250px;
+  position: fixed;
   top: 62px;
   width: 300px;
-  max-height: 420px;
+  max-height: min(420px, calc(100dvh - 78px));
   overflow: auto;
   z-index: 45;
   background: #fff;
@@ -1852,6 +1851,8 @@ td strong {
 }
 .project-popover > :is(button, .project-choice) > span:nth-child(2) {
   flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .project-popover small {
   display: block;
@@ -2133,21 +2134,11 @@ form input[readonly] {
   .next-step > h2 {
     font-size: 26px;
   }
-  .sidebar {
-    width: 240px;
-  }
-  .main-shell {
-    margin-left: 240px;
-  }
 }
 @media (max-width: 1200px) {
   .sidebar {
-    width: 205px;
     padding-left: 12px;
     padding-right: 12px;
-  }
-  .main-shell {
-    margin-left: 205px;
   }
   .main-content {
     padding: 27px 26px 0;
@@ -2258,11 +2249,7 @@ form input[readonly] {
 }
 @media (max-width: 960px) {
   .sidebar {
-    width: 185px;
     padding: 25px 10px 0;
-  }
-  .main-shell {
-    margin-left: 185px;
   }
   .brand {
     font-size: 21px;
@@ -2512,9 +2499,6 @@ form input[readonly] {
   .integration-row p {
     font-size: 9px;
   }
-  .project-popover {
-    left: 200px;
-  }
   .report-panel {
     padding: 18px;
   }
@@ -2529,7 +2513,6 @@ form input[readonly] {
 @media (max-width: 700px) {
   .sidebar {
     transform: translateX(-100%);
-    width: 226px;
     transition: transform 180ms ease-out;
     padding: 28px 16px 0;
   }
@@ -2567,9 +2550,6 @@ form input[readonly] {
   }
   .sidebar-note p {
     font-size: 10px;
-  }
-  .main-shell {
-    margin-left: 0;
   }
   .main-content {
     padding: 25px 20px 0;
@@ -2961,10 +2941,7 @@ form input[readonly] {
     margin-inline-start: auto;
   }
   .project-popover {
-    left: 20px;
-    right: 20px;
     top: 62px;
-    width: auto;
   }
   .notification-popover {
     right: 15px;
@@ -3166,7 +3143,7 @@ form input[readonly] {
     display: none !important;
   }
   .main-shell {
-    margin: 0;
+    margin: 0 !important;
   }
   .main-content {
     padding: 0;

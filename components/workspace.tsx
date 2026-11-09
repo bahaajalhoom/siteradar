@@ -480,7 +480,7 @@ export function Workspace({
             <Scan size={27} weight="bold" />
             <i />
           </span>
-          <span>
+          <span dir="ltr">
             SiteRadar<span className="brand-dot">.</span>
           </span>
         </a>
@@ -508,20 +508,28 @@ export function Workspace({
         </div>
         <button
           className="sidebar-project"
-          onClick={() => setProjectOpen(!projectOpen)}
+          aria-expanded={projectOpen}
+          onClick={() => {
+            setMobileOpen(false);
+            setProjectOpen(!projectOpen);
+          }}
         >
           <span className="project-letter">
             {audit.synthetic ? "f" : host[0].toUpperCase()}
           </span>
-          <span>{audit.name}</span>
+          <span className="sidebar-project-name" dir="auto" title={audit.name}>{audit.name}</span>
           <CaretDown size={13} />
         </button>
-        <nav aria-label="Report navigation">
+        <nav aria-label={t("Report navigation")}>
           {reportNav.map(({ name, icon: Icon }) => (
             <Link
               key={name}
               className={`nav-item ${view === name ? "active" : ""}`}
               href={hrefFor(name)} aria-current={view===name?'page':undefined}
+              onClick={() => {
+                setMobileOpen(false);
+                setProjectOpen(false);
+              }}
             >
               <Icon size={19} weight={view === name ? "fill" : "regular"} />
               <span>{t(name)}</span>
@@ -582,7 +590,7 @@ export function Workspace({
           <div className="profile">
             <span className="avatar">SR</span>
             <div>
-              <strong>{user?.name ?? "Example visitor"}</strong>
+              <strong><bdi>{user?.name ?? t("Example visitor")}</bdi></strong>
               <span>
                 {demo ? <UiText text={"Example workspace"} /> : <UiText text={"Free plan · Unlimited"} />}
               </span>
@@ -591,7 +599,7 @@ export function Workspace({
               <button
                 className="icon-btn"
                 onClick={signOut}
-                aria-label="Sign out"
+                aria-label={t("Sign out")}
               >
                 <SignOut size={19} />
               </button>
@@ -605,7 +613,11 @@ export function Workspace({
             <button
               className="icon-btn mobile-menu"
               aria-label={t("Open navigation")}
-              onClick={() => setMobileOpen(true)}
+              aria-expanded={mobileOpen}
+              onClick={() => {
+                setProjectOpen(false);
+                setMobileOpen(true);
+              }}
             >
               <List size={22} />
             </button>
@@ -661,7 +673,7 @@ export function Workspace({
               <button
                 className="icon-btn"
                 onClick={() => setProjectOpen(false)}
-                aria-label="Close projects"
+                aria-label={t("Close projects")}
               >
                 <X size={16} />
               </button>
@@ -670,7 +682,7 @@ export function Workspace({
               <button onClick={() => chooseAudit(exampleAudit)}>
                 <span className="project-letter">f</span>
                 <span>
-                  Form & Field<small><UiText text={"Example project"} /></small>
+                  <bdi>Form & Field</bdi><small><UiText text={"Example project"} /></small>
                 </span>
                 {audit.synthetic && <Check size={16} />}
               </button>
@@ -679,7 +691,7 @@ export function Workspace({
               <Link className="project-choice" key={a.id} href={demo?'/demo':workspaceHref('Overview',{projectId:a.projectId,auditId:a.id,scope:'project'})}>
                 <GlobeHemisphereWest size={20} />
                 <span>
-                  {a.name}
+                  <bdi>{a.name}</bdi>
                   <small>
                     {t(a.status)} ·{" "}
                     {new Date(a.createdAt).toLocaleDateString("en-GB", {
